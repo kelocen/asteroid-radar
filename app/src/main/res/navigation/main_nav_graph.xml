@@ -1,0 +1,28 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_graph"
+  app:startDestination="@id/asteroidFragment">
+
+  <fragment
+    android:id="@+id/asteroidFragment"
+    android:label="fragment_asteroid"
+    android:name="dev.kelocen.asteroidradar.ui.asteroid.AsteroidFragment"
+    tools:layout="@layout/fragment_asteroid">
+    <action
+      android:id="@+id/action_showDetail"
+      app:destination="@id/detailFragment" />
+  </fragment>
+
+  <fragment
+    android:id="@+id/detailFragment"
+    android:label="fragment_detail"
+    android:name="dev.kelocen.asteroidradar.ui.detail.DetailFragment"
+    tools:layout="@layout/fragment_detail">
+
+    <argument
+      android:name="selectedAsteroid"
+      app:argType="dev.kelocen.asteroidradar.data.models.Asteroid" />
+  </fragment>
+
+</navigation>
