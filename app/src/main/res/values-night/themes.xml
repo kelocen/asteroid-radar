@@ -5,12 +5,202 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
     <item name="colorOnPrimary">@color/default_text_color</item>
-    <!-- Secondary brand color. -->
-    <item name="colorSecondary">@color/colorPrimary</item>
-    <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
-    <item name="colorOnSecondary">@color/default_text_color</item>
     <!-- Status bar color. -->
     <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     <!-- Customize your theme here. -->
+  </style>
+  <!-- - - - - - = = = = = = = = = = = = Main Activity = = = = = = = = = = = = - - - - - -->
+  <style name="fragmentContainerActivityMain" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+  </style>
+  <!-- - - - - - = = = = = = = = = = = = Asteroid Fragment = = = = = = = = = = = = - - - - - -->
+  <!-- Parent Constraint Layout -->
+  <style name="constraintLayoutFragmentAsteroid" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:background">@color/app_background</item>
+  </style>
+  <!-- Image of the Day Frame Layout -->
+  <style name="frameLayoutAsteroidFragment" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">@dimen/image_of_day_frame_layout_height</item>
+    <item name="android:layout_width">match_parent</item>
+  </style>
+  <!-- Asteroid RecyclerView -->
+  <style name="asteroidsRecyclerViewAsteroidFragment" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">@dimen/zero_height_width</item>
+    <item name="android:layout_height">@dimen/zero_height_width</item>
+  </style>
+  <!-- Image of the Day -->
+  <style name="imageOfDayImageViewFragmentAsteroid" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:adjustViewBounds">true</item>
+    <item name="android:scaleType">centerCrop</item>
+  </style>
+  <!-- Progress Bar -->
+  <style name="statusProgressBarFragmentAsteroid" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:indeterminate">true</item>
+    <item name="android:visibility">gone</item>
+  </style>
+  <!-- Image of the Day Label -->
+  <style name="imageOfDayLabelTextViewFragmentAsteroid" parent="Theme.AsteroidRadar">
+    <item name="android:textStyle">bold</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_gravity">bottom</item>
+    <item name="android:padding">@dimen/image_of_day_label_text_view_padding</item>
+    <item name="android:background">@color/image_of_day_label_background</item>
+    <item name="android:textColor">@color/default_text_color</item>
+    <item name="android:text">@string/image_of_the_day</item>
+    <item name="android:textSize">@dimen/image_of_day_label_text_view_text_size</item>
+  </style>
+  <!-- - - - - - = = = = = = = = = = = = Detail Fragment = = = = = = = = = = = = - - - - - -->
+  <!-- Constraint Layout -->
+  <style name="constraintLayoutFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+  </style>
+  <!-- Asteroid Content Container Linear Layout -->
+  <style name="asteroidContentLinearLayoutFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+  <!-- Approach Date Linear Layout -->
+  <style name="approachLinearLayoutFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+  <!-- Magnitude Container Linear Layout -->
+  <style name="magnitudeParentLinearLayoutFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">horizontal</item>
+    <item name="android:layout_marginTop">@dimen/magnitude_parent_linear_layout_margin_top</item>
+    <item name="android:gravity">center</item>
+  </style>
+  <!-- Magnitude Content Linear Layout -->
+  <style name="magnitudeContentLinearLayoutFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">@dimen/zero_height_width</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">@dimen/magnitude_content_layout_weight</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+  <!-- Content ScrollView -->
+  <style name="scrollviewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">@dimen/zero_height_width</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">@dimen/scrollview_padding</item>
+  </style>
+  <!-- Image of the Day -->
+  <style name="imageOfDayImageViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:adjustViewBounds">true</item>
+  </style>
+  <!-- Help Button -->
+  <style name="helpButtonImageViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">@dimen/help_button_image_view_padding</item>
+  </style>
+  <!-- Approach Date Label -->
+  <style name="approachDateLabelTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:text">@string/close_approach_data_title</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Approach Date -->
+  <style name="approachDateTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginTop">@dimen/approach_date_margin_top</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Magnitude Label -->
+  <style name="magnitudeLabelTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:text">@string/absolute_magnitude_title</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Magnitude -->
+  <style name="magnitudeTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginTop">@dimen/magnitude_text_view_margin_top</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Diameter Label -->
+  <style name="diameterLabelTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginTop">@dimen/diameter_label_text_view_margin_top</item>
+    <item name="android:text">@string/estimated_diameter_title</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Diameter -->
+  <style name="diameterTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/diameter_text_view_margin_top</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Velocity Label -->
+  <style name="velocityLabelTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:text">@string/relative_velocity_title</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Velocity -->
+  <style name="velocityTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginTop">@dimen/velocity_text_view_margin_top</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Distance Label -->
+  <style name="distanceLabelTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/distance_label_text_view_margin_top</item>
+    <item name="android:text">@string/distance_from_earth_title</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Distance -->
+  <style name="distanceTextViewFragmentDetail" parent="Theme.AsteroidRadar">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginTop">@dimen/distance_text_view_margin_top</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- - - - - - = = = = = = = = = = = = Asteroid List Item = = = = = = = = = = = = - - - - - -->
+  <!-- Asteroid Code Name -->
+  <style name="codenameTextViewListItemAsteroid">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:text">68347(2001 Kb67)</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Asteroid Approach Date -->
+  <style name="approachDateTextViewListItemAsteroid">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:text">2020-02-08</item>
+    <item name="android:textColor">@color/default_text_color</item>
+  </style>
+  <!-- Asteroid Approach Date -->
+  <style name="potentiallyDangerousImageViewListItemAsteroid">
+    <item name="android:layout_height">24dp</item>
+    <item name="android:layout_width">24dp</item>
+    <item name="android:src">@drawable/ic_status_potentially_hazardous</item>
+    <item name="android:scaleType">centerInside</item>
   </style>
 </resources>

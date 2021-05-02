@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="16dp"
+  android:background="@color/app_background">
+
+  <!-- Asteroid Code Name -->
+  <ImageView
+    android:id="@+id/image_potentially_dangerous"
+    style="@style/potentiallyDangerousImageViewListItemAsteroid"
+    android:contentDescription="@string/hazard_indicator"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <!-- Asteroid Approach Date -->
+  <TextView
+    android:id="@+id/text_asteroid_approach_date"
+    style="@style/approachDateTextViewListItemAsteroid"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/text_asteroid_code_name" />
+
+  <!-- Potentially Dangerous -->
+  <TextView
+    android:id="@+id/text_asteroid_code_name"
+    style="@style/codenameTextViewListItemAsteroid"
+    app:layout_constraintStart_toEndOf="@id/image_potentially_dangerous"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

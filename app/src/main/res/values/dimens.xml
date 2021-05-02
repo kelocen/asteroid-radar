@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- - - - - - = = = = = General = = = = = - - - - - -->
+  <dimen name="zero_height_width">0dp</dimen>
+  <!-- - - - - - = = = = = Asteroid Fragment = = = = = - - - - - -->
+  <dimen name="image_of_day_frame_layout_height">220dp</dimen>
+  <dimen name="image_of_day_label_text_view_padding">16dp</dimen>
+  <dimen name="image_of_day_label_text_view_text_size">20sp</dimen>
+  <!-- - - - - - = = = = = Detail Fragment = = = = = - - - - - -->
+  <dimen name="magnitude_parent_linear_layout_margin_top">16dp</dimen>
+  <dimen name="magnitude_content_layout_weight">1</dimen>
+  <dimen name="scrollview_padding">16dp</dimen>
+  <dimen name="help_button_image_view_padding">16dp</dimen>
+  <dimen name="approach_date_margin_top">4dp</dimen>
+  <dimen name="magnitude_text_view_margin_top">4dp</dimen>
+  <dimen name="diameter_label_text_view_margin_top">16</dimen>
+  <dimen name="diameter_text_view_margin_top">4dp</dimen>
+  <dimen name="velocity_text_view_margin_top">4dp</dimen>
+  <dimen name="distance_label_text_view_margin_top">16dp</dimen>
+  <dimen name="distance_text_view_margin_top">4dp</dimen>
+  <!-- - - - - - = = = = = List Item Asteroid = = = = = - - - - - -->
+  <dimen name="padding_constraint_layout_list_item_asteroid" />
+
+</resources>

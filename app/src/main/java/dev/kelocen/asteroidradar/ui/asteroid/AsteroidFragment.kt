@@ -14,14 +14,11 @@ class AsteroidFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         val binding = FragmentAsteroidBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
-        binding.viewModel = viewModel
-
+        binding.asteroidViewModel = viewModel
         setHasOptionsMenu(true)
-
         return binding.root
     }
 
