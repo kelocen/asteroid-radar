@@ -9,7 +9,7 @@
   <!-- Asteroid Code Name -->
   <ImageView
     android:id="@+id/image_potentially_dangerous"
-    style="@style/potentiallyDangerousImageViewListItemAsteroid"
+    style="@style/potentiallyHazardousImageViewListItemAsteroid"
     android:contentDescription="@string/hazard_indicator"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
