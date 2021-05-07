@@ -4,28 +4,28 @@
 
   <!-- Parent Constraint Layout -->
   <androidx.constraintlayout.widget.ConstraintLayout style="@style/constraintLayoutFragmentAsteroid">
-    <!-- Image of the Day Frame Layout-->
+    <!-- Image of the Day Frame Layout -->
     <FrameLayout
-      android:id="@+id/activity_main_image_of_the_day_layout"
+      android:id="@+id/image_of_the_day_layout"
       style="@style/frameLayoutAsteroidFragment"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-      <!-- Image of the Day-->
+      <!-- Image of the Day -->
       <ImageView
-        android:id="@+id/activity_main_image_of_the_day"
+        android:id="@+id/image_image_of_the_day"
         style="@style/imageOfDayImageViewFragmentAsteroid"
         android:contentDescription="@string/nasa_picture_of_day_content_description_format"
         app:srcCompat="@drawable/placeholder_picture_of_day" />
 
-      <!-- Image of the Day Label-->
+      <!-- Image of the Day Label -->
       <TextView
         android:id="@+id/textView"
         style="@style/imageOfDayLabelTextViewFragmentAsteroid" />
     </FrameLayout>
 
-    <!-- Progress Bar-->
+    <!-- Progress Bar -->
     <ProgressBar
       android:id="@+id/status_loading_wheel"
       style="@style/statusProgressBarFragmentAsteroid"
@@ -43,7 +43,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/activity_main_image_of_the_day_layout"
+      app:layout_constraintTop_toBottomOf="@+id/image_of_the_day_layout"
       app:layout_constraintVertical_bias="0.0" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 

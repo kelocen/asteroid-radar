@@ -96,7 +96,7 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:padding">@dimen/scrollview_padding</item>
   </style>
-  <!-- Image of the Day -->
+  <!-- Image of the Day & Potentially Hazardous -->
   <style name="imageOfDayImageViewFragmentDetail" parent="Theme.AsteroidRadar">
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">match_parent</item>

@@ -8,12 +8,12 @@
     style="@style/constraintLayoutFragmentDetail"
     android:background="@color/app_background">
 
-    <!-- Image of the Day -->
+    <!-- Asteroid Hazardous Image -->
     <ImageView
-      android:id="@+id/activity_main_image_of_the_day"
+      android:id="@+id/image_asteroid_potentially_hazardous"
       style="@style/imageOfDayImageViewFragmentDetail"
-      android:contentDescription="@string/image_of_the_day"
-      app:asteroidStatusImage="@{asteroid.potentiallyHazardous}"
+      android:contentDescription="@string/potentially_hazardous_asteroid_image"
+      app:detailStatusImage="@{asteroid.isPotentiallyHazardous}"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +24,7 @@
       style="@style/scrollviewFragmentDetail"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/activity_main_image_of_the_day">
+      app:layout_constraintTop_toBottomOf="@+id/image_asteroid_potentially_hazardous">
 
       <!-- Asteroid Content Linear Layout -->
       <LinearLayout style="@style/asteroidContentLinearLayoutFragmentDetail">
@@ -62,7 +62,7 @@
             <TextView
               android:id="@+id/absolute_magnitude"
               style="@style/magnitudeTextViewFragmentDetail"
-              app:astronomicalUnitText="@{asteroid.absoluteMagnitude}"
+              app:detailAstronomicalUnitText="@{asteroid.absoluteMagnitude}"
               tools:text="25.126 au" />
           </LinearLayout>
 
@@ -74,7 +74,7 @@
         <TextView
           android:id="@+id/estimated_diameter"
           style="@style/diameterTextViewFragmentDetail"
-          app:kmUnitText="@{asteroid.estimatedDiameter}"
+          app:detailKmUnitText="@{asteroid.estimatedDiameter}"
           tools:text="0.82 km" />
 
         <!-- Velocity Label -->
@@ -84,7 +84,7 @@
         <TextView
           android:id="@+id/relative_velocity"
           style="@style/velocityTextViewFragmentDetail"
-          app:velocityText="@{asteroid.relativeVelocity}"
+          app:detailVelocityText="@{asteroid.relativeVelocity}"
           tools:text="11.9 km/s" />
 
         <!-- Distance Label -->
@@ -94,7 +94,7 @@
         <TextView
           android:id="@+id/distance_from_earth"
           style="@style/distanceTextViewFragmentDetail"
-          app:astronomicalUnitText="@{asteroid.distanceFromEarth}"
+          app:detailAstronomicalUnitText="@{asteroid.distanceFromEarth}"
           tools:text="0.0924 au" />
       </LinearLayout>
     </ScrollView>
