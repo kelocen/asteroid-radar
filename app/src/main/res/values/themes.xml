@@ -181,6 +181,13 @@
     <item name="android:textColor">@color/default_text_color</item>
   </style>
   <!-- - - - - - = = = = = = = = = = = = Asteroid List Item = = = = = = = = = = = = - - - - - -->
+  <!-- Constraint Layout -->
+  <style name="constraintLayoutAsteroidListItem">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:padding">16dp</item>
+    <item name="android:background">@color/app_background</item>
+  </style>
   <!-- Asteroid Code Name -->
   <style name="codenameTextViewListItemAsteroid">
     <item name="android:layout_height">wrap_content</item>

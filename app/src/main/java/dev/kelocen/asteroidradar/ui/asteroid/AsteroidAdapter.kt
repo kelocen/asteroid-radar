@@ -10,7 +10,8 @@ import dev.kelocen.asteroidradar.databinding.ListItemAsteroidBinding
 /**
  * A subclass of [RecyclerView.Adapter] for [Asteroid] objects.
  */
-class AsteroidAdapter : RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
+class AsteroidAdapter(private val clickListener: AsteroidListener) :
+    RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
 
     /**
      * A list of [Asteroid] objects for the [AsteroidAdapter].
@@ -29,7 +30,7 @@ class AsteroidAdapter : RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
 
     override fun onBindViewHolder(holder: AsteroidHolder, position: Int) {
         val asteroidItem = asteroids[position]
-        holder.bind(asteroidItem)
+        holder.bind(clickListener, asteroidItem)
     }
 
     /**
@@ -41,8 +42,9 @@ class AsteroidAdapter : RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
         /**
          * Binds [View] properties to corresponding binding adapters.
          */
-        fun bind(asteroid: Asteroid) {
+        fun bind(clickListener: AsteroidListener, asteroid: Asteroid) {
             binding.asteroid = asteroid
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -56,5 +58,12 @@ class AsteroidAdapter : RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
                 return AsteroidHolder(binding)
             }
         }
+    }
+
+    /**
+     * A click listener class for [AsteroidAdapter].
+     */
+    class AsteroidListener(val clickListener: (asteroid: Asteroid) -> Unit) {
+        fun onClick(asteroid: Asteroid) = clickListener(asteroid)
     }
 }

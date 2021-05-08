@@ -3,10 +3,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@color/app_background">
+    style="@style/constraintLayoutAsteroidListItem"
+    android:onClick="@{() -> clickListener.onClick(asteroid)}">
 
     <!-- Asteroid Potentially Hazardous -->
     <ImageView
@@ -40,5 +38,8 @@
     <variable
       name="asteroid"
       type="dev.kelocen.asteroidradar.data.models.Asteroid" />
+    <variable
+      name="clickListener"
+      type="dev.kelocen.asteroidradar.ui.asteroid.AsteroidAdapter.AsteroidListener" />
   </data>
 </layout>

@@ -27,6 +27,10 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     val pictureOfDay: LiveData<PictureOfDay>
         get() = _pictureOfDay
 
+    private var _navigateToAsteroidDetail = MutableLiveData<Asteroid?>()
+    val navigateToAsteroidDetail
+        get() = _navigateToAsteroidDetail
+
     init {
         initializeAsteroids()
     }
@@ -42,5 +46,19 @@ class AsteroidViewModel(application: Application) : ViewModel() {
         viewModelScope.launch {
             asteroidRepository.refreshAsteroids()
         }
+    }
+
+    /**
+     * Handler for opening selected asteroids in the [dev.kelocen.asteroidradar.ui.detail.DetailFragment]
+     */
+    fun onAsteroidClicked(asteroid: Asteroid) {
+        _navigateToAsteroidDetail.value = asteroid
+    }
+
+    /**
+     * Resets the click event handler value to null.
+     */
+    fun onAsteroidNavigated() {
+        _navigateToAsteroidDetail.value = null
     }
 }

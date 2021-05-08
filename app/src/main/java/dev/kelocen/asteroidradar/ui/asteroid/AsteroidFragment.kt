@@ -5,6 +5,7 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import dev.kelocen.asteroidradar.R
 import dev.kelocen.asteroidradar.databinding.FragmentAsteroidBinding
 
@@ -14,7 +15,10 @@ import dev.kelocen.asteroidradar.databinding.FragmentAsteroidBinding
 class AsteroidFragment : Fragment() {
 
     private lateinit var binding: FragmentAsteroidBinding
-    private var asteroidAdapter = AsteroidAdapter()
+
+    private var asteroidAdapter = AsteroidAdapter(AsteroidAdapter.AsteroidListener { asteroid ->
+        asteroidViewModel.onAsteroidClicked(asteroid)
+    })
 
     private val asteroidViewModel: AsteroidViewModel by lazy {
         val application = requireNotNull(this.activity).application
@@ -39,6 +43,13 @@ class AsteroidFragment : Fragment() {
             if (asteroids != null) {
                 binding.statusLoadingWheel.visibility = View.GONE
                 asteroidAdapter.asteroids = asteroids
+            }
+        })
+        asteroidViewModel.navigateToAsteroidDetail.observe(viewLifecycleOwner, { selectedAsteroid ->
+            selectedAsteroid?.let {
+                this.findNavController().navigate(
+                        AsteroidFragmentDirections.actionShowDetail(selectedAsteroid))
+                asteroidViewModel.onAsteroidNavigated()
             }
         })
     }
