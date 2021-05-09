@@ -58,21 +58,27 @@
     <item name="android:textSize">@dimen/image_of_day_label_text_view_text_size</item>
   </style>
   <!-- - - - - - = = = = = = = = = = = = Detail Fragment = = = = = = = = = = = = - - - - - -->
-  <!-- Constraint Layout -->
-  <style name="constraintLayoutFragmentDetail" parent="Theme.AsteroidRadar">
+  <!-- Linear Layout -->
+  <style name="linearLayoutFragmentDetail" parent="Theme.AsteroidRadar">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">match_parent</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:background">@color/app_background</item>
   </style>
   <!-- Content ScrollView -->
   <style name="scrollviewFragmentDetail" parent="Theme.AsteroidRadar">
-    <item name="android:layout_width">@dimen/zero_height_width</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:padding">@dimen/scrollview_padding</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/zero_height_width</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:paddingTop">@dimen/scroll_view_padding</item>
+    <item name="android:paddingStart">@dimen/scroll_view_padding</item>
+    <item name="android:paddingEnd">@dimen/scroll_view_padding</item>
   </style>
   <!-- Image of the Day & Potentially Hazardous -->
   <style name="imageOfDayImageViewFragmentDetail" parent="Theme.AsteroidRadar">
-    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_height">@dimen/image_of_day_frame_layout_height</item>
     <item name="android:layout_width">match_parent</item>
+    <item name="android:scaleType">fitCenter</item>
     <item name="android:adjustViewBounds">true</item>
   </style>
   <!-- Help Button -->
@@ -173,7 +179,7 @@
   <style name="constraintLayoutAsteroidListItem">
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">match_parent</item>
-    <item name="android:padding">16dp</item>
+    <item name="android:padding">@dimen/padding_constraint_layout_list_item_asteroid</item>
     <item name="android:background">@color/app_background</item>
   </style>
   <!-- Asteroid Code Name -->

@@ -3,9 +3,16 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-    style="@style/constraintLayoutFragmentDetail"
-    android:background="@color/app_background">
+  <data>
+    <variable
+      name="asteroid"
+      type="dev.kelocen.asteroidradar.data.models.Asteroid" />
+  </data>
+
+  <!-- Parent Linear Layout -->
+  <LinearLayout
+    android:id="@+id/linear_asteroid_content"
+    style="@style/linearLayoutFragmentDetail">
 
     <!-- Asteroid Hazard/Safe ImageView -->
     <ImageView
@@ -132,12 +139,6 @@
       </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <data>
-    <variable
-      name="asteroid"
-      type="dev.kelocen.asteroidradar.data.models.Asteroid" />
-  </data>
+  </LinearLayout>
 
 </layout>

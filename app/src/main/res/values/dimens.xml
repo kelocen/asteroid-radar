@@ -8,8 +8,7 @@
   <dimen name="image_of_day_label_text_view_text_size">20sp</dimen>
   <!-- - - - - - = = = = = Detail Fragment = = = = = - - - - - -->
   <dimen name="magnitude_parent_linear_layout_margin_top">16dp</dimen>
-  <dimen name="magnitude_content_layout_weight">1</dimen>
-  <dimen name="scrollview_padding">16dp</dimen>
+  <dimen name="scroll_view_padding">16dp</dimen>
   <dimen name="help_button_image_view_padding">16dp</dimen>
   <dimen name="help_button_image_view_margin_end">16dp</dimen>
   <dimen name="data_text_view_margin_top">4dp</dimen>
@@ -17,7 +16,7 @@
   <dimen name="parent_label_text_view_text_size">20sp</dimen>
   <dimen name="parent_text_view_text_size">18sp</dimen>
   <!-- - - - - - = = = = = List Item Asteroid = = = = = - - - - - -->
-  <dimen name="padding_constraint_layout_list_item_asteroid" />
+  <dimen name="padding_constraint_layout_list_item_asteroid">16dp</dimen>
   <dimen name="potentially_hazardous_image_height_width">30dp</dimen>
   <dimen name="asteroid_code_name_text_size">20sp</dimen>
   <dimen name="asteroid_close_approach_date_text_size">17sp</dimen>

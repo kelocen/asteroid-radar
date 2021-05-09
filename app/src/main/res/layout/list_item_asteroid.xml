@@ -2,6 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
+  <data>
+    <variable
+      name="asteroid"
+      type="dev.kelocen.asteroidradar.data.models.Asteroid" />
+    <variable
+      name="clickListener"
+      type="dev.kelocen.asteroidradar.ui.asteroid.AsteroidAdapter.AsteroidListener" />
+  </data>
+
+  <!-- Parent Constraint Layout -->
   <androidx.constraintlayout.widget.ConstraintLayout
     style="@style/constraintLayoutAsteroidListItem"
     android:onClick="@{() -> clickListener.onClick(asteroid)}">
@@ -12,8 +22,9 @@
       style="@style/potentiallyHazardousImageViewListItemAsteroid"
       android:contentDescription="@string/hazard_indicator"
       app:asteroidStatusImage="@{asteroid.isPotentiallyHazardous}"
+      app:layout_constraintBottom_toBottomOf="@+id/text_asteroid_approach_date"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="@+id/text_asteroid_code_name" />
 
     <!-- Asteroid Approach Date -->
     <TextView
@@ -33,13 +44,4 @@
       app:layout_constraintTop_toTopOf="parent" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <data>
-    <variable
-      name="asteroid"
-      type="dev.kelocen.asteroidradar.data.models.Asteroid" />
-    <variable
-      name="clickListener"
-      type="dev.kelocen.asteroidradar.ui.asteroid.AsteroidAdapter.AsteroidListener" />
-  </data>
 </layout>
