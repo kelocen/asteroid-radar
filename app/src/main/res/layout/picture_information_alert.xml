@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/linear_layout_picture_alert"
+  style="@style/linearLayoutPictureInformationAlert">
+
+  <TextView
+    android:id="@+id/text_picture_alert_heading"
+    style="@style/alertHeadingTextViewPictureInformationAlert" />
+
+  <TextView
+    android:id="@+id/text_picture_of_day_name"
+    style="@style/pictureOfDayNameTextViewPictureInformationAlert" />
+</LinearLayout>

@@ -3,11 +3,14 @@
   <!-- - - - - - = = = = = General = = = = = - - - - - -->
   <dimen name="zero_height_width">0dp</dimen>
   <!-- - - - - - = = = = = Asteroid Fragment = = = = = - - - - - -->
-  <dimen name="image_of_day_frame_layout_height">220dp</dimen>
-  <dimen name="image_of_day_label_text_view_padding">16dp</dimen>
-  <dimen name="image_of_day_label_text_view_text_size">20sp</dimen>
+  <dimen name="picture_of_day_frame_layout_height">220dp</dimen>
+  <dimen name="picture_of_day_label_text_view_padding">16dp</dimen>
+  <dimen name="picture_of_day_label_text_view_text_size">22sp</dimen>
+  <dimen name="picture_of_day_info_image_view_height_width">24dp</dimen>
+  <dimen name="picture_of_day_info_image_view_margin_end">25dp</dimen>
+  <dimen name="picture_of_day_info_image_view_margin_start">8dp</dimen>
+  <dimen name="picture_label_background_view_height">60dp</dimen>
   <!-- - - - - - = = = = = Detail Fragment = = = = = - - - - - -->
-  <dimen name="magnitude_parent_linear_layout_margin_top">16dp</dimen>
   <dimen name="scroll_view_padding">16dp</dimen>
   <dimen name="help_button_image_view_padding">16dp</dimen>
   <dimen name="help_button_image_view_margin_end">16dp</dimen>
@@ -20,4 +23,10 @@
   <dimen name="potentially_hazardous_image_height_width">30dp</dimen>
   <dimen name="asteroid_code_name_text_size">20sp</dimen>
   <dimen name="asteroid_close_approach_date_text_size">17sp</dimen>
+  <!-- - - - - - = = = = = Picture Information Alert = = = = = - - - - - -->
+  <dimen name="picture_alert_linear_layout_padding">8dp</dimen>
+  <dimen name="picture_alert_heading_margin_top">8dp</dimen>
+  <dimen name="picture_alert_heading_text_size">20sp</dimen>
+  <dimen name="picture_alert_name_text_size">16sp</dimen>
+  <dimen name="picture_alert_name_margin_top">8dp</dimen>
 </resources>

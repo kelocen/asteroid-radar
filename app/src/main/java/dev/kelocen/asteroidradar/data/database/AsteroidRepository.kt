@@ -1,15 +1,32 @@
 package dev.kelocen.asteroidradar.data.database
 
+import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import dev.kelocen.asteroidradar.data.models.Asteroid
 import dev.kelocen.asteroidradar.data.models.DatabaseAsteroid
+import dev.kelocen.asteroidradar.data.models.PictureOfDay
+import dev.kelocen.asteroidradar.util.api.AsteroidApiStatus
+import dev.kelocen.asteroidradar.util.api.PictureApi
+import dev.kelocen.asteroidradar.util.api.isDeviceConnected
 import dev.kelocen.asteroidradar.util.asDomainModel
+import dev.kelocen.asteroidradar.util.getApiKey
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 /**
  * A repository for asteroid data.
  */
-class AsteroidRepository(private val database: AsteroidDatabase) {
+class AsteroidRepository(application: Application) {
+
+    private val isConnected = isDeviceConnected(application)
+    private var asteroidDatabase = AsteroidDatabase.getInstance(application)
+
+    private var _asteroidApiStatus = MutableLiveData<AsteroidApiStatus>()
+    val asteroidApiStatus: LiveData<AsteroidApiStatus>
+        get() = _asteroidApiStatus
 
     /**
      * [DatabaseAsteroid] test objects for the database.
@@ -51,12 +68,33 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
         arrayOf(asteroid2420262, asteroid3638505, asteroid3831469, asteroid3843359, asteroid3892272,
                 asteroid3892702, asteroid3991588)
 
-
     /**
-     * Inserts the [DatabaseAsteroid] objects into [AsteroidDatabase]
+     * Inserts the [DatabaseAsteroid] objects into [AsteroidDatabase].
      */
     suspend fun refreshAsteroids() {
-        database.asteroidDao.insertAll(*testAsteroids)
+        asteroidDatabase.asteroidDao.insertAll(*testAsteroids)
+    }
+
+    /**
+     * Returns a [PictureOfDay] object.
+     */
+    suspend fun getPictureOfDay(): PictureOfDay? {
+        var pictureOfDay: PictureOfDay? = null
+        _asteroidApiStatus.value = AsteroidApiStatus.LOADING
+        if (isConnected) {
+            withContext(Dispatchers.IO) {
+                try {
+                    pictureOfDay = PictureApi.retrofitService.getPictureAsync(getApiKey()).await()
+                    _asteroidApiStatus.postValue(AsteroidApiStatus.DONE)
+                } catch (e: Exception) {
+                    _asteroidApiStatus.postValue(AsteroidApiStatus.ERROR)
+                    Timber.e(e)
+                }
+            }
+        } else {
+            _asteroidApiStatus.value = AsteroidApiStatus.NOT_CONNECTED
+        }
+        return pictureOfDay
     }
 
     /**
@@ -64,7 +102,7 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
      * to return [Asteroid] objects.
      */
     val asteroids: LiveData<List<Asteroid>> =
-        Transformations.map(database.asteroidDao.getAsteroids()) { transformedAsteroids ->
+        Transformations.map(asteroidDatabase.asteroidDao.getAsteroids()) { transformedAsteroids ->
             transformedAsteroids.asDomainModel()
         }
 }

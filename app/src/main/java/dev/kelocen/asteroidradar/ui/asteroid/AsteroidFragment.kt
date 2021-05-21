@@ -2,12 +2,15 @@ package dev.kelocen.asteroidradar.ui.asteroid
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import dev.kelocen.asteroidradar.R
+import dev.kelocen.asteroidradar.data.models.PictureOfDay
 import dev.kelocen.asteroidradar.databinding.FragmentAsteroidBinding
+import kotlinx.android.synthetic.main.picture_information_alert.view.*
 
 /**
  * A [Fragment] subclass for [dev.kelocen.asteroidradar.data.models.Asteroid] objects.
@@ -15,6 +18,7 @@ import dev.kelocen.asteroidradar.databinding.FragmentAsteroidBinding
 class AsteroidFragment : Fragment() {
 
     private lateinit var binding: FragmentAsteroidBinding
+    private var pictureOfDay: PictureOfDay? = null
 
     private var asteroidAdapter = AsteroidAdapter(AsteroidAdapter.AsteroidListener { asteroid ->
         asteroidViewModel.onAsteroidClicked(asteroid)
@@ -30,28 +34,89 @@ class AsteroidFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_asteroid, container, false)
         setHasOptionsMenu(true)
-        binding.statusLoadingWheel.visibility = View.VISIBLE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.asteroidViewModel = asteroidViewModel
         binding.asteroidRecycler.adapter = asteroidAdapter
+        binding.statusLoadingWheel
+        setupObservers()
+        setupListeners()
+    }
+
+    /**
+     * Configures the observers for the fragment.
+     */
+    private fun setupObservers() {
         asteroidViewModel.asteroidsLiveData.observe(viewLifecycleOwner, { asteroids ->
             if (asteroids != null) {
-                binding.statusLoadingWheel.visibility = View.GONE
                 asteroidAdapter.asteroids = asteroids
             }
         })
+        asteroidViewModel.pictureOfDay.observe(viewLifecycleOwner, { picture ->
+            pictureOfDay = picture
+        })
         asteroidViewModel.navigateToAsteroidDetail.observe(viewLifecycleOwner, { selectedAsteroid ->
             selectedAsteroid?.let {
-                this.findNavController().navigate(
-                        AsteroidFragmentDirections.actionShowDetail(selectedAsteroid))
+                this.findNavController()
+                    .navigate(AsteroidFragmentDirections.actionShowDetail(selectedAsteroid))
                 asteroidViewModel.onAsteroidNavigated()
             }
         })
+    }
+
+    /**
+     * Configures the listeners for the fragment.
+     */
+    private fun setupListeners() {
+        binding.refreshAsteroidRecycler.setOnRefreshListener {
+            refreshAllContent()
+        }
+
+        /**
+         * Shows an [AlertDialog] to display the title of the [PictureOfDay][dev.kelocen.asteroidradar.data.models.PictureOfDay]
+         * when the information image is tapped.
+         */
+        binding.imagePictureInfoButton.setOnClickListener {
+            displayPictureInfoDialog()
+        }
+    }
+
+    /**
+     * Refreshes the content for the [PictureOfDay][dev.kelocen.asteroidradar.data.models.PictureOfDay]
+     * and [Asteroids][dev.kelocen.asteroidradar.data.models.Asteroid].
+     */
+    private fun refreshAllContent() {
+        asteroidViewModel.refreshAsteroidRepository()
+        asteroidViewModel.refreshPictureOfDay()
+        if (binding.refreshAsteroidRecycler.isRefreshing) {
+            binding.refreshAsteroidRecycler.isRefreshing = false
+        }
+    }
+
+    /**
+     * Displays an [AlertDialog] that contains information about the [PictureOfDay][dev.kelocen.asteroidradar.data.models.PictureOfDay]
+     */
+    private fun displayPictureInfoDialog() {
+        val dialogLayout = layoutInflater.inflate(R.layout.picture_information_alert, null)
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setView(dialogLayout)
+        builder.setPositiveButton(android.R.string.ok, null).create()
+        when (pictureOfDay?.mediaType) {
+            "video" -> {
+                dialogLayout.text_picture_of_day_name.text = getText(R.string.video_not_supported)
+            }
+            "image" -> {
+                dialogLayout.text_picture_of_day_name.text = pictureOfDay?.title
+            }
+            else -> {
+                dialogLayout.text_picture_of_day_name.text = getText(R.string.no_data_available)
+            }
+        }
+        builder.create().show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,6 +125,20 @@ class AsteroidFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.refresh_menu -> {
+                refreshAllContent()
+            }
+            R.id.show_week_menu -> {
+                // TODO Week's asteroids
+            }
+            R.id.show_today_menu -> {
+                // TODO Today's asteroids
+            }
+            else -> {
+                // TODO show all asteroids
+            }
+        }
         return true
     }
 }

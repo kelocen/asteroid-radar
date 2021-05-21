@@ -1,7 +1,6 @@
 package dev.kelocen.asteroidradar.ui.asteroid
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.kelocen.asteroidradar.data.models.Asteroid
@@ -16,7 +15,7 @@ class AsteroidAdapter(private val clickListener: AsteroidListener) :
     /**
      * A list of [Asteroid] objects for the [AsteroidAdapter].
      */
-    var asteroids = listOf<Asteroid>()
+    var asteroids = listOf<Asteroid?>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -40,9 +39,9 @@ class AsteroidAdapter(private val clickListener: AsteroidListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**
-         * Binds [View] properties to corresponding binding adapters.
+         * Initializes list item bindings with [Asteroid] data.
          */
-        fun bind(clickListener: AsteroidListener, asteroid: Asteroid) {
+        fun bind(clickListener: AsteroidListener, asteroid: Asteroid?) {
             binding.asteroid = asteroid
             binding.clickListener = clickListener
             binding.executePendingBindings()

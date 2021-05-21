@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import dev.kelocen.asteroidradar.R
 import dev.kelocen.asteroidradar.databinding.FragmentDetailBinding
 
+/**
+ * A [Fragment] subclass for displaying the details of [Asteroid][dev.kelocen.asteroidradar.data.models.Asteroid] objects.
+ */
 class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -22,10 +25,13 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Displays the an [AlertDialog] that defines the astronomical unit (au).
+     */
     private fun displayAstronomicalUnitExplanationDialog() {
         val builder = AlertDialog.Builder(requireActivity())
-                .setMessage(getString(R.string.astronomical_unit_explanation))
-                .setPositiveButton(android.R.string.ok, null)
+            .setMessage(getString(R.string.astronomical_unit_explanation))
+            .setPositiveButton(android.R.string.ok, null)
         builder.create().show()
     }
 }

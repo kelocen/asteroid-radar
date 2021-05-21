@@ -10,46 +10,84 @@
 
   <!-- Parent Constraint Layout -->
   <androidx.constraintlayout.widget.ConstraintLayout style="@style/constraintLayoutFragmentAsteroid">
+
     <!-- Image of the Day Frame Layout -->
     <FrameLayout
-      android:id="@+id/image_of_the_day_layout"
+      android:id="@+id/frame_picture_of_the_day_layout"
       style="@style/frameLayoutAsteroidFragment"
+      app:layout_constraintBottom_toTopOf="@id/refresh_asteroid_recycler"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-      <!-- Image of the Day -->
+      <!-- Picture of the Day -->
       <ImageView
-        android:id="@+id/image_image_of_the_day"
-        style="@style/imageOfDayImageViewFragmentAsteroid"
-        android:contentDescription="@string/nasa_picture_of_day_content_description_format"
+        android:id="@+id/image_picture_of_the_day"
+        style="@style/pictureOfDayImageViewFragmentAsteroid"
+        android:contentDescription="@string/picture_of_day_no_image"
+        app:asteroidApiStatus="@{asteroidViewModel.asteroidStatus}"
+        app:pictureOfDay="@{asteroidViewModel.pictureOfDay}"
         app:srcCompat="@drawable/placeholder_picture_of_day" />
-
-      <!-- Image of the Day Label -->
-      <TextView
-        android:id="@+id/text_image_of_day_label"
-        style="@style/imageOfDayLabelTextViewFragmentAsteroid" />
     </FrameLayout>
+
+    <!-- Picture of the day background -->
+    <View
+      android:id="@+id/view_picture_label_background"
+      style="@style/pictureLabelBackgroundViewAsteroidFragment"
+      app:layout_constraintBottom_toBottomOf="@id/frame_picture_of_the_day_layout"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+      android:id="@+id/image_picture_info_button"
+      style="@style/pictureInfoImageViewAsteroidFragment"
+      android:contentDescription="@string/picture_of_the_day_info"
+      app:layout_constraintBottom_toBottomOf="@+id/frame_picture_of_the_day_layout"
+      app:layout_constraintStart_toEndOf="@id/text_picture_of_day_label"
+      app:layout_constraintTop_toTopOf="@+id/text_picture_of_day_label"
+      app:srcCompat="@drawable/ic_image_information" />
 
     <!-- Progress Bar -->
     <ProgressBar
       android:id="@+id/status_loading_wheel"
       style="@style/statusProgressBarFragmentAsteroid"
+      app:asteroidApiStatus="@{asteroidViewModel.asteroidStatus}"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Asteroid RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/asteroid_recycler"
-      style="@style/asteroidsRecyclerViewAsteroidFragment"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <!-- Image of the Day Label -->
+    <TextView
+      android:id="@+id/text_picture_of_day_label"
+      style="@style/pictureOfDayLabelTextViewFragmentAsteroid"
+      app:layout_constraintBottom_toBottomOf="@id/frame_picture_of_the_day_layout"
+      app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Swipe Refresh Asteroid Layout -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+      android:id="@+id/refresh_asteroid_recycler"
+      style="@style/asteroidRefreshLayoutAsteroidFragment"
+      app:layout_constrainedHeight="true"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/image_of_the_day_layout"
-      app:layout_constraintVertical_bias="0.0" />
+      app:layout_constraintTop_toBottomOf="@+id/frame_picture_of_the_day_layout">
+
+      <!-- Asteroid RecyclerView -->
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/asteroid_recycler"
+        style="@style/asteroidsRecyclerViewAsteroidFragment"
+        app:asteroidList="@{asteroidViewModel.asteroidsLiveData}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_picture_of_the_day_layout"
+        app:layout_constraintVertical_bias="0.0" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

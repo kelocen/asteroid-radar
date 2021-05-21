@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.kelocen.asteroidradar.data.database.AsteroidDatabase
 import dev.kelocen.asteroidradar.data.database.AsteroidRepository
 import dev.kelocen.asteroidradar.data.models.Asteroid
 import dev.kelocen.asteroidradar.data.models.PictureOfDay
+import dev.kelocen.asteroidradar.util.api.AsteroidApiStatus
 import kotlinx.coroutines.launch
 
 /**
@@ -16,8 +16,9 @@ import kotlinx.coroutines.launch
  */
 class AsteroidViewModel(application: Application) : ViewModel() {
 
-    private var asteroidDatabase = AsteroidDatabase.getInstance(application)
-    private var asteroidRepository = AsteroidRepository(asteroidDatabase)
+    private var asteroidRepository = AsteroidRepository(application)
+
+    val asteroidStatus: LiveData<AsteroidApiStatus> = asteroidRepository.asteroidApiStatus
 
     private var _asteroidsLiveData = asteroidRepository.asteroids
     val asteroidsLiveData: LiveData<List<Asteroid>>
@@ -33,6 +34,7 @@ class AsteroidViewModel(application: Application) : ViewModel() {
 
     init {
         initializeAsteroids()
+        refreshPictureOfDay()
     }
 
     private fun initializeAsteroids() {
@@ -42,14 +44,14 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     /**
      * Refreshes [AsteroidRepository] to update the list of [Asteroid] objects.
      */
-    private fun refreshAsteroidRepository() {
+    fun refreshAsteroidRepository() {
         viewModelScope.launch {
             asteroidRepository.refreshAsteroids()
         }
     }
 
     /**
-     * Handler for opening selected asteroids in the [dev.kelocen.asteroidradar.ui.detail.DetailFragment]
+     * Handler for opening selected asteroids in the [DetailFragment][dev.kelocen.asteroidradar.ui.detail.DetailFragment].
      */
     fun onAsteroidClicked(asteroid: Asteroid) {
         _navigateToAsteroidDetail.value = asteroid
@@ -60,5 +62,14 @@ class AsteroidViewModel(application: Application) : ViewModel() {
      */
     fun onAsteroidNavigated() {
         _navigateToAsteroidDetail.value = null
+    }
+
+    /**
+     * Retrieves NASA's **Picture of the Day** and assigns it to the [_pictureOfDay] live data.
+     */
+    fun refreshPictureOfDay() {
+        viewModelScope.launch {
+            _pictureOfDay.value = asteroidRepository.getPictureOfDay()
+        }
     }
 }
