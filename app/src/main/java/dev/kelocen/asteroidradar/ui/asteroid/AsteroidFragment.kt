@@ -62,7 +62,7 @@ class AsteroidFragment : Fragment() {
      * Configures the observers for the fragment.
      */
     private fun setupObservers() {
-        asteroidViewModel.asteroidsLiveData.observe(viewLifecycleOwner, { asteroids ->
+        asteroidViewModel.asteroidsLiveData?.observe(viewLifecycleOwner, { asteroids ->
             if (asteroids != null) {
                 asteroidAdapter.asteroids = asteroids
             }

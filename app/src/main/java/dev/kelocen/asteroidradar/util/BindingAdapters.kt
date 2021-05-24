@@ -19,16 +19,6 @@ import dev.kelocen.asteroidradar.ui.asteroid.AsteroidAdapter
 /**
  * Binding adapters for the asteroid screen.
  */
-@BindingAdapter("listEmptyMessage")
-fun bindEmptyMessage(textView: TextView, asteroids: LiveData<List<Asteroid>>?) {
-    val context = textView.context
-    if (asteroids?.value?.size == 0 || asteroids?.value == null) {
-        textView.visibility = View.VISIBLE
-        textView.text = context.getString(R.string.no_data_available)
-    } else {
-        textView.visibility = View.INVISIBLE
-    }
-}
 
 @BindingAdapter("pictureOfDay")
 fun bindPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
@@ -52,7 +42,7 @@ fun bindPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
 @BindingAdapter("pictureApiStatus")
 fun bindPictureApiStatus(imageView: ImageView, status: PictureApiStatus?) {
     val context = imageView.context
-    if (status == PictureApiStatus.NOT_CONNECTED || status == PictureApiStatus.ERROR) {
+    if (status == PictureApiStatus.ERROR) {
         imageView.setImageResource(R.drawable.notify_no_connection)
         imageView.contentDescription = context.getString(R.string.no_data_available)
     }
@@ -66,6 +56,17 @@ fun bindAsteroidRecycler(recyclerView: RecyclerView, asteroidList: List<Asteroid
         adapter.asteroids = asteroidList
     } else {
         recyclerView.visibility = View.INVISIBLE
+    }
+}
+
+@BindingAdapter("listEmptyMessage")
+fun bindEmptyMessage(textView: TextView, asteroids: LiveData<List<Asteroid>>?) {
+    val context = textView.context
+    if (asteroids?.value?.size == 0 || asteroids?.value == null) {
+        textView.visibility = View.VISIBLE
+        textView.text = context.getString(R.string.no_data_available)
+    } else {
+        textView.visibility = View.INVISIBLE
     }
 }
 

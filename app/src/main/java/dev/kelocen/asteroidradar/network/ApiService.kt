@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit
 /**
  * An [Enum] for displaying the status of Near Earth Object (NEO) API requests.
  */
-enum class AsteroidApiStatus { LOADING, ERROR, DONE, NOT_CONNECTED }
+enum class AsteroidApiStatus { LOADING, ERROR, DONE }
 
 /**
  * An [Enum] for displaying the status of Astronomy Picture of the Day API requests.
  */
-enum class PictureApiStatus { LOADING, ERROR, DONE, NOT_CONNECTED }
+enum class PictureApiStatus { LOADING, ERROR, DONE }
 
 /**
  * An [OkHttpClient] object to monitor API requests.
@@ -62,7 +62,7 @@ interface PictureApiService {
      * Returns a [PictureOfDay] object.
      */
     @GET(Constants.IMAGE_OF_DAY)
-    suspend fun getPicture(@Query(Constants.API_KEY) apiKey: String): PictureOfDay
+    suspend fun getPicture(@Query(Constants.API_KEY) apiKey: String): PictureOfDay?
 }
 
 /**

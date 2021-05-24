@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.kelocen.asteroidradar.data.database.AsteroidRepository
+import dev.kelocen.asteroidradar.data.AsteroidRepository
 import dev.kelocen.asteroidradar.domain.Asteroid
 import dev.kelocen.asteroidradar.domain.PictureOfDay
 import dev.kelocen.asteroidradar.network.AsteroidApiStatus
@@ -23,28 +23,32 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     private var asteroidRepository = AsteroidRepository(application)
 
     /**
-     * Retrieves the status of Near Earth Object API requests made by [AsteroidRepository].
-     */
-    val asteroidApiStatus: LiveData<AsteroidApiStatus> = asteroidRepository.asteroidApiStatus
-
-    /**
-     * Retrieves the status of Picture of the Day API requests made by [AsteroidRepository].
-     */
-    val pictureApiStatus: LiveData<PictureApiStatus> = asteroidRepository.pictureApiStatus
-
-    /**
      * Retrieves the list of [Asteroid] objects from the repository.
      */
     private var _asteroidsLiveData = asteroidRepository.asteroids
-    val asteroidsLiveData: LiveData<List<Asteroid>>
+    val asteroidsLiveData: LiveData<List<Asteroid>>?
         get() = _asteroidsLiveData
 
     /**
      * Retrieves the [PictureOfDay] from the repository.
      */
-    private var _pictureOfDay = MutableLiveData<PictureOfDay>()
-    val pictureOfDay: LiveData<PictureOfDay>
+    private var _pictureOfDay = MutableLiveData<PictureOfDay?>()
+    val pictureOfDay: LiveData<PictureOfDay?>
         get() = _pictureOfDay
+
+    /**
+     * Returns the status of the Near Earth Objects API call.
+     */
+    private var _asteroidApiStatus = MutableLiveData<AsteroidApiStatus?>()
+    val asteroidApiStatus: LiveData<AsteroidApiStatus?>
+        get() = _asteroidApiStatus
+
+    /**
+     * Returns the status of the Picture of the Day API call.
+     */
+    private var _pictureApiStatus = MutableLiveData<PictureApiStatus?>()
+    val pictureApiStatus: LiveData<PictureApiStatus?>
+        get() = _pictureApiStatus
 
     /**
      * Used to assign selected [Asteroid] objects.
@@ -58,16 +62,22 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     }
 
     private fun initializeAsteroids() {
-        refreshAsteroidRepository()
         refreshPictureOfDay()
+        refreshAsteroidRepository()
     }
 
     /**
      * Refreshes [AsteroidRepository] to update the list of [Asteroid] objects.
      */
     fun refreshAsteroidRepository() {
+        _asteroidApiStatus.value = AsteroidApiStatus.LOADING
         viewModelScope.launch {
             asteroidRepository.refreshAsteroids()
+            if (_asteroidsLiveData?.value != null) {
+                _asteroidApiStatus.postValue(AsteroidApiStatus.DONE)
+            } else {
+                _asteroidApiStatus.postValue(AsteroidApiStatus.ERROR)
+            }
         }
     }
 
@@ -75,8 +85,14 @@ class AsteroidViewModel(application: Application) : ViewModel() {
      * Refreshes NASA's **Picture of the Day**.
      */
     fun refreshPictureOfDay() {
+        _pictureApiStatus.value = PictureApiStatus.LOADING
         viewModelScope.launch {
-            _pictureOfDay.value = asteroidRepository.getPictureOfDay()
+            _pictureOfDay.postValue(asteroidRepository.getPictureOfDay())
+            if (_pictureOfDay.value != null) {
+                _pictureApiStatus.postValue(PictureApiStatus.DONE)
+            } else {
+                _pictureApiStatus.postValue(PictureApiStatus.ERROR)
+            }
         }
     }
 

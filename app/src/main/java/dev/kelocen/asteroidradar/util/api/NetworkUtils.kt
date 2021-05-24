@@ -1,10 +1,5 @@
 package dev.kelocen.asteroidradar.util.api
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
-import android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED
-import android.os.Build
 import dev.kelocen.asteroidradar.domain.Asteroid
 import dev.kelocen.asteroidradar.network.NetworkAsteroid
 import dev.kelocen.asteroidradar.util.Constants
@@ -60,28 +55,4 @@ private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
         calendar.add(Calendar.DAY_OF_YEAR, 1)
     }
     return formattedDateList
-}
-
-/**
- * Takes a [Context] argument and returns true if the device is connected to a network.
- */
-fun isDeviceConnected(context: Context?): Boolean {
-    var isConnected = false
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        val conMan = context?.getSystemService(ConnectivityManager::class.java)
-        val capabilities = conMan?.getNetworkCapabilities(conMan.activeNetwork)
-        if (capabilities?.hasCapability(
-                    NET_CAPABILITY_VALIDATED) == true && capabilities.hasCapability(
-                    NET_CAPABILITY_INTERNET)
-        ) {
-            isConnected = true
-        }
-    } else {
-        val conMan = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network = conMan.activeNetworkInfo
-        if (network != null && network.isConnected) {
-            isConnected = true
-        }
-    }
-    return isConnected
 }
