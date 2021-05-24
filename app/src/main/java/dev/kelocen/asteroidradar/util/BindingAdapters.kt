@@ -6,17 +6,30 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dev.kelocen.asteroidradar.R
-import dev.kelocen.asteroidradar.data.models.Asteroid
-import dev.kelocen.asteroidradar.data.models.PictureOfDay
+import dev.kelocen.asteroidradar.domain.Asteroid
+import dev.kelocen.asteroidradar.domain.PictureOfDay
+import dev.kelocen.asteroidradar.network.AsteroidApiStatus
+import dev.kelocen.asteroidradar.network.PictureApiStatus
 import dev.kelocen.asteroidradar.ui.asteroid.AsteroidAdapter
-import dev.kelocen.asteroidradar.util.api.AsteroidApiStatus
 
 /**
  * Binding adapters for the asteroid screen.
  */
+@BindingAdapter("listEmptyMessage")
+fun bindEmptyMessage(textView: TextView, asteroids: LiveData<List<Asteroid>>?) {
+    val context = textView.context
+    if (asteroids?.value?.size == 0 || asteroids?.value == null) {
+        textView.visibility = View.VISIBLE
+        textView.text = context.getString(R.string.no_data_available)
+    } else {
+        textView.visibility = View.INVISIBLE
+    }
+}
+
 @BindingAdapter("pictureOfDay")
 fun bindPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
     val context = imageView.context
@@ -36,10 +49,10 @@ fun bindPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
     }
 }
 
-@BindingAdapter("asteroidApiStatus")
-fun bindAsteroidApiStatus(imageView: ImageView, status: AsteroidApiStatus?) {
+@BindingAdapter("pictureApiStatus")
+fun bindPictureApiStatus(imageView: ImageView, status: PictureApiStatus?) {
     val context = imageView.context
-    if (status == AsteroidApiStatus.NOT_CONNECTED || status == AsteroidApiStatus.ERROR) {
+    if (status == PictureApiStatus.NOT_CONNECTED || status == PictureApiStatus.ERROR) {
         imageView.setImageResource(R.drawable.notify_no_connection)
         imageView.contentDescription = context.getString(R.string.no_data_available)
     }
@@ -101,10 +114,10 @@ fun bindAsteroidApiStatus(progressBar: ProgressBar, status: AsteroidApiStatus?) 
 @BindingAdapter("detailStatusImage")
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
-        Picasso.get().load(R.drawable.asteroid_hazardous).fit().into(imageView)
+        Picasso.get().load(R.drawable.asteroid_hazardous).fit().centerInside().into(imageView)
         imageView.contentDescription = R.string.potentially_hazardous_asteroid_image.toString()
     } else {
-        Picasso.get().load(R.drawable.asteroid_safe).fit().into(imageView)
+        Picasso.get().load(R.drawable.asteroid_safe).fit().centerInside().into(imageView)
         imageView.contentDescription = R.string.not_hazardous_asteroid_image.toString()
     }
 }

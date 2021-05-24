@@ -8,22 +8,33 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import dev.kelocen.asteroidradar.R
-import dev.kelocen.asteroidradar.data.models.PictureOfDay
 import dev.kelocen.asteroidradar.databinding.FragmentAsteroidBinding
+import dev.kelocen.asteroidradar.domain.Asteroid
+import dev.kelocen.asteroidradar.domain.PictureOfDay
 import kotlinx.android.synthetic.main.picture_information_alert.view.*
 
 /**
- * A [Fragment] subclass for [dev.kelocen.asteroidradar.data.models.Asteroid] objects.
+ * A [Fragment] subclass for [Asteroid][dev.kelocen.asteroidradar.domain.Asteroid] objects.
  */
 class AsteroidFragment : Fragment() {
 
     private lateinit var binding: FragmentAsteroidBinding
+
+    /**
+     * An instance of [PictureOfDay] for the picture information alert dialog.
+     */
     private var pictureOfDay: PictureOfDay? = null
 
+    /**
+     * An instance of [AsteroidAdapter] to listen for selected [Asteroid] objects.
+     */
     private var asteroidAdapter = AsteroidAdapter(AsteroidAdapter.AsteroidListener { asteroid ->
         asteroidViewModel.onAsteroidClicked(asteroid)
     })
 
+    /**
+     * An instance of [AsteroidViewModel] to retrieve data for the UI.
+     */
     private val asteroidViewModel: AsteroidViewModel by lazy {
         val application = requireNotNull(this.activity).application
         val viewModelFactory = AsteroidViewModelFactory(application)
@@ -77,7 +88,7 @@ class AsteroidFragment : Fragment() {
         }
 
         /**
-         * Shows an [AlertDialog] to display the title of the [PictureOfDay][dev.kelocen.asteroidradar.data.models.PictureOfDay]
+         * Shows an [AlertDialog] to display the title of the [PictureOfDay][dev.kelocen.asteroidradar.domain.PictureOfDay]
          * when the information image is tapped.
          */
         binding.imagePictureInfoButton.setOnClickListener {
@@ -86,8 +97,8 @@ class AsteroidFragment : Fragment() {
     }
 
     /**
-     * Refreshes the content for the [PictureOfDay][dev.kelocen.asteroidradar.data.models.PictureOfDay]
-     * and [Asteroids][dev.kelocen.asteroidradar.data.models.Asteroid].
+     * Refreshes the content for the [PictureOfDay][dev.kelocen.asteroidradar.domain.PictureOfDay]
+     * and [Asteroids][dev.kelocen.asteroidradar.domain.Asteroid].
      */
     private fun refreshAllContent() {
         asteroidViewModel.refreshAsteroidRepository()
@@ -98,7 +109,7 @@ class AsteroidFragment : Fragment() {
     }
 
     /**
-     * Displays an [AlertDialog] that contains information about the [PictureOfDay][dev.kelocen.asteroidradar.data.models.PictureOfDay]
+     * Displays an [AlertDialog] that contains information about the [PictureOfDay][dev.kelocen.asteroidradar.domain.PictureOfDay]
      */
     private fun displayPictureInfoDialog() {
         val dialogLayout = layoutInflater.inflate(R.layout.picture_information_alert, null)

@@ -1,4 +1,4 @@
-package dev.kelocen.asteroidradar.data.models
+package dev.kelocen.asteroidradar.domain
 
 import com.squareup.moshi.Json
 

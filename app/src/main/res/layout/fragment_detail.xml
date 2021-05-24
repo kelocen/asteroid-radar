@@ -6,7 +6,7 @@
   <data>
     <variable
       name="asteroid"
-      type="dev.kelocen.asteroidradar.data.models.Asteroid" />
+      type="dev.kelocen.asteroidradar.domain.Asteroid" />
   </data>
 
   <!-- Parent Linear Layout -->

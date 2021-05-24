@@ -10,9 +10,10 @@ import dev.kelocen.asteroidradar.R
 import dev.kelocen.asteroidradar.databinding.FragmentDetailBinding
 
 /**
- * A [Fragment] subclass for displaying the details of [Asteroid][dev.kelocen.asteroidradar.data.models.Asteroid] objects.
+ * A [Fragment] subclass for displaying the details of selected [Asteroid][dev.kelocen.asteroidradar.domain.Asteroid] objects.
  */
 class DetailFragment : Fragment() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         val binding = FragmentDetailBinding.inflate(inflater)

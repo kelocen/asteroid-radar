@@ -3,8 +3,8 @@ package dev.kelocen.asteroidradar.ui.asteroid
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.kelocen.asteroidradar.data.models.Asteroid
 import dev.kelocen.asteroidradar.databinding.ListItemAsteroidBinding
+import dev.kelocen.asteroidradar.domain.Asteroid
 
 /**
  * A subclass of [RecyclerView.Adapter] for [Asteroid] objects.

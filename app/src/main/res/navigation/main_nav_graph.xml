@@ -22,7 +22,7 @@
 
     <argument
       android:name="selectedAsteroid"
-      app:argType="dev.kelocen.asteroidradar.data.models.Asteroid" />
+      app:argType="dev.kelocen.asteroidradar.domain.Asteroid" />
   </fragment>
 
 </navigation>

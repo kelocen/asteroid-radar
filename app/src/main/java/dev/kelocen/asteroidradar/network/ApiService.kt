@@ -1,11 +1,10 @@
-package dev.kelocen.asteroidradar.util.api
+package dev.kelocen.asteroidradar.network
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dev.kelocen.asteroidradar.data.models.PictureOfDay
+import dev.kelocen.asteroidradar.domain.PictureOfDay
 import dev.kelocen.asteroidradar.util.Constants
-import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import retrofit2.Retrofit
@@ -16,14 +15,20 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 /**
- * An [Enum] for displaying the status of Near Earth Object API requests.
+ * An [Enum] for displaying the status of Near Earth Object (NEO) API requests.
  */
 enum class AsteroidApiStatus { LOADING, ERROR, DONE, NOT_CONNECTED }
+
+/**
+ * An [Enum] for displaying the status of Astronomy Picture of the Day API requests.
+ */
+enum class PictureApiStatus { LOADING, ERROR, DONE, NOT_CONNECTED }
 
 /**
  * An [OkHttpClient] object to monitor API requests.
  */
 private val httpClient: OkHttpClient = OkHttpClient().newBuilder()
+    .addInterceptor(OkHttpProfilerInterceptor())
     .connectTimeout(30, TimeUnit.SECONDS)
     .readTimeout(30, TimeUnit.SECONDS)
     .writeTimeout(30, TimeUnit.SECONDS)
@@ -36,23 +41,17 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-private val retrofit: Retrofit = Retrofit.Builder()
-    .client(httpClient)
-    .addConverterFactory(ScalarsConverterFactory.create())
-    .baseUrl(Constants.BASE_URL)
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .build()
-
 /**
  * An interface that exposes the getAsteroidsAsync method.
  */
 interface AsteroidApiService {
     /**
-     * Returns a [JSONObject] from that contains asteroid data.
+     * Returns a [JSONObject] that contains asteroid data.
      */
     @GET(Constants.NEO_FEED)
-    fun getAsteroidsAsync(@Query(Constants.API_KEY) apiKey: String): Deferred<JSONObject>
+    suspend fun getAsteroids(@Query(Constants.START_DATE) startDate: String,
+                             @Query(Constants.END_DATE) endDate: String,
+                             @Query(Constants.API_KEY) apiKey: String): String
 }
 
 /**
@@ -63,13 +62,18 @@ interface PictureApiService {
      * Returns a [PictureOfDay] object.
      */
     @GET(Constants.IMAGE_OF_DAY)
-    fun getPictureAsync(@Query(Constants.API_KEY) apiKey: String): Deferred<PictureOfDay>
+    suspend fun getPicture(@Query(Constants.API_KEY) apiKey: String): PictureOfDay
 }
 
 /**
  * A lazy-initialized object that exposes the Retrofit service.
  */
 object AsteroidApi {
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(Constants.BASE_URL)
+        .client(httpClient)
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .build()
     val retrofitService: AsteroidApiService by lazy {
         retrofit.create(AsteroidApiService::class.java)
     }
@@ -79,6 +83,11 @@ object AsteroidApi {
  * A lazy-initialized object that exposes the Retrofit service.
  */
 object PictureApi {
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(Constants.BASE_URL)
+        .client(httpClient)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .build()
     val retrofitService: PictureApiService by lazy {
         retrofit.create(PictureApiService::class.java)
     }

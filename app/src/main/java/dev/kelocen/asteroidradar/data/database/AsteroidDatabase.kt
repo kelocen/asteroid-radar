@@ -3,11 +3,9 @@ package dev.kelocen.asteroidradar.data.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import dev.kelocen.asteroidradar.data.models.Asteroid
-import dev.kelocen.asteroidradar.data.models.DatabaseAsteroid
 
 /**
- * A [RoomDatabase] for [Asteroid] objects.
+ * A [RoomDatabase] for [Asteroid][dev.kelocen.asteroidradar.domain.Asteroid] objects.
  */
 @Database(entities = [DatabaseAsteroid::class], version = 1, exportSchema = false)
 abstract class AsteroidDatabase : RoomDatabase() {
@@ -57,6 +55,6 @@ interface AsteroidDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg asteroids: DatabaseAsteroid)
 
-    @Query("SELECT * FROM asteroids")
+    @Query("SELECT * FROM asteroids ORDER BY close_approach_date")
     fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
 }

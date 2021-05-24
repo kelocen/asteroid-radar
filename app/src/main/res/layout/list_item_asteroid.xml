@@ -5,7 +5,7 @@
   <data>
     <variable
       name="asteroid"
-      type="dev.kelocen.asteroidradar.data.models.Asteroid" />
+      type="dev.kelocen.asteroidradar.domain.Asteroid" />
     <variable
       name="clickListener"
       type="dev.kelocen.asteroidradar.ui.asteroid.AsteroidAdapter.AsteroidListener" />
