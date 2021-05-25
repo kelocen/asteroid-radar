@@ -73,7 +73,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/frame_picture_of_the_day_layout"
-      app:listEmptyMessage="@{asteroidViewModel.asteroidsLiveData}" />
+      app:listEmptyMessage="@{asteroidViewModel.recyclerAsteroids}" />
 
     <!-- Swipe Refresh Asteroid Layout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -90,7 +90,7 @@
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/asteroid_recycler"
         style="@style/asteroidsRecyclerViewAsteroidFragment"
-        app:asteroidList="@{asteroidViewModel.asteroidsLiveData}"
+        app:asteroidList="@{asteroidViewModel.recyclerAsteroids}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

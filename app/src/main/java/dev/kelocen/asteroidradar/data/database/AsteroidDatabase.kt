@@ -56,5 +56,11 @@ interface AsteroidDao {
     suspend fun insertAll(vararg asteroids: DatabaseAsteroid)
 
     @Query("SELECT * FROM asteroids ORDER BY close_approach_date")
-    fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
+    fun getAllAsteroids(): LiveData<List<DatabaseAsteroid>>
+
+    @Query("SELECT * FROM asteroids WHERE close_approach_date = :dateToday ORDER BY close_approach_date")
+    fun getTodayAsteroids(dateToday: String): LiveData<List<DatabaseAsteroid>>
+
+    @Query("SELECT * FROM asteroids WHERE close_approach_date >= :dateToday ORDER BY close_approach_date")
+    fun getWeekAsteroids(dateToday: String): LiveData<List<DatabaseAsteroid>>
 }

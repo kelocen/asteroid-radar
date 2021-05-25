@@ -1,15 +1,15 @@
 package dev.kelocen.asteroidradar.ui.asteroid
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import dev.kelocen.asteroidradar.data.AsteroidFilter
 import dev.kelocen.asteroidradar.data.AsteroidRepository
+import dev.kelocen.asteroidradar.data.database.AsteroidDatabase
 import dev.kelocen.asteroidradar.domain.Asteroid
 import dev.kelocen.asteroidradar.domain.PictureOfDay
 import dev.kelocen.asteroidradar.network.AsteroidApiStatus
 import dev.kelocen.asteroidradar.network.PictureApiStatus
+import dev.kelocen.asteroidradar.ui.detail.DetailFragment
 import kotlinx.coroutines.launch
 
 /**
@@ -23,14 +23,28 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     private var asteroidRepository = AsteroidRepository(application)
 
     /**
-     * Retrieves the list of [Asteroid] objects from the repository.
+     * A [LiveData] list of [Asteroid] objects for the recycler view.
      */
-    private var _asteroidsLiveData = asteroidRepository.asteroids
-    val asteroidsLiveData: LiveData<List<Asteroid>>?
-        get() = _asteroidsLiveData
+    private var _recyclerAsteroids = MutableLiveData<List<Asteroid>?>()
+    val recyclerAsteroids: LiveData<List<Asteroid>?>
+        get() = _recyclerAsteroids
 
     /**
-     * Retrieves the [PictureOfDay] from the repository.
+     * An [Observer] for [AsteroidViewModel] that monitors changes to [asteroidsLiveData] and
+     * updates [_recyclerAsteroids] as necessary.
+     */
+    private val asteroidViewModelObserver = Observer<List<Asteroid>> { updatedAsteroids ->
+        _recyclerAsteroids.value = updatedAsteroids
+    }
+
+    /**
+     * A [LiveData] list of [Asteroid] objects for [AsteroidViewModel] that is used to retrieve
+     * data from [AsteroidRepository] and observed by [asteroidViewModelObserver].
+     */
+    private lateinit var asteroidsLiveData: LiveData<List<Asteroid>>
+
+    /**
+     * A [LiveData] object for [PictureOfDay].
      */
     private var _pictureOfDay = MutableLiveData<PictureOfDay?>()
     val pictureOfDay: LiveData<PictureOfDay?>
@@ -51,7 +65,7 @@ class AsteroidViewModel(application: Application) : ViewModel() {
         get() = _pictureApiStatus
 
     /**
-     * Used to assign selected [Asteroid] objects.
+     * Used to assign selected [Asteroid] objects for the [DetailFragment] screen.
      */
     private var _navigateToAsteroidDetail = MutableLiveData<Asteroid?>()
     val navigateToAsteroidDetail
@@ -64,16 +78,32 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     private fun initializeAsteroids() {
         refreshPictureOfDay()
         refreshAsteroidRepository()
+        getSelectedAsteroids(AsteroidFilter.SHOW_WEEK)
+    }
+
+    /**
+     * Used to specify the [AsteroidFilter] in the menu on the [AsteroidFragment] screen.
+     */
+    fun updateAsteroidSelection(selection: AsteroidFilter?) {
+        getSelectedAsteroids(selection)
+    }
+
+    /**
+     * Retrieves a list of [Asteroid] objects from [AsteroidDatabase] using the specified filter.
+     */
+    private fun getSelectedAsteroids(selection: AsteroidFilter?) {
+        asteroidsLiveData = asteroidRepository.getSelectedAsteroids(selection)
+        asteroidsLiveData.observeForever(asteroidViewModelObserver)
     }
 
     /**
      * Refreshes [AsteroidRepository] to update the list of [Asteroid] objects.
      */
     fun refreshAsteroidRepository() {
-        _asteroidApiStatus.value = AsteroidApiStatus.LOADING
         viewModelScope.launch {
+            _asteroidApiStatus.postValue(AsteroidApiStatus.LOADING)
             asteroidRepository.refreshAsteroids()
-            if (_asteroidsLiveData?.value != null) {
+            if (asteroidsLiveData.value != null) {
                 _asteroidApiStatus.postValue(AsteroidApiStatus.DONE)
             } else {
                 _asteroidApiStatus.postValue(AsteroidApiStatus.ERROR)
@@ -82,11 +112,11 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     }
 
     /**
-     * Refreshes NASA's **Picture of the Day**.
+     * Refreshes the [PictureOfDay].
      */
     fun refreshPictureOfDay() {
-        _pictureApiStatus.value = PictureApiStatus.LOADING
         viewModelScope.launch {
+            _pictureApiStatus.postValue(PictureApiStatus.LOADING)
             _pictureOfDay.postValue(asteroidRepository.getPictureOfDay())
             if (_pictureOfDay.value != null) {
                 _pictureApiStatus.postValue(PictureApiStatus.DONE)
@@ -97,7 +127,7 @@ class AsteroidViewModel(application: Application) : ViewModel() {
     }
 
     /**
-     * Handler for opening selected asteroids with the [DetailFragment][dev.kelocen.asteroidradar.ui.detail.DetailFragment].
+     * Handler for opening selected asteroids with the [DetailFragment].
      */
     fun onAsteroidClicked(asteroid: Asteroid) {
         _navigateToAsteroidDetail.value = asteroid
@@ -108,5 +138,10 @@ class AsteroidViewModel(application: Application) : ViewModel() {
      */
     fun onAsteroidNavigated() {
         _navigateToAsteroidDetail.value = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        asteroidsLiveData.removeObserver(asteroidViewModelObserver)
     }
 }

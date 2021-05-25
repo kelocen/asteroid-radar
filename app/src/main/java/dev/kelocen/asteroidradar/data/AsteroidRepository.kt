@@ -21,6 +21,11 @@ import org.json.JSONObject
 import timber.log.Timber
 
 /**
+ * An enum class to filter the asteroids on the [Asteroid] screen.
+ */
+enum class AsteroidFilter { SHOW_TODAY, SHOW_WEEK, SHOW_ALL }
+
+/**
  * A repository for asteroid data.
  */
 class AsteroidRepository(application: Application) {
@@ -31,10 +36,26 @@ class AsteroidRepository(application: Application) {
      * Retrieves [DatabaseAsteroid] objects from [AsteroidDatabase] and uses [Transformations]
      * to return [Asteroid] objects.
      */
-    var asteroids: LiveData<List<Asteroid>>? =
-        Transformations.map(asteroidDatabase.asteroidDao.getAsteroids()) { transformedAsteroids ->
-            transformedAsteroids.asDomainModel()
+    fun getSelectedAsteroids(selection: AsteroidFilter?): LiveData<List<Asteroid>> {
+        return when (selection) {
+            AsteroidFilter.SHOW_TODAY -> {
+                Transformations.map(asteroidDatabase.asteroidDao.getTodayAsteroids(getDateToday()))
+                { transformedAsteroids -> transformedAsteroids.asDomainModel() }
+            }
+            AsteroidFilter.SHOW_WEEK -> {
+                Transformations.map(asteroidDatabase.asteroidDao.getWeekAsteroids(getDateToday()))
+                { transformedAsteroids -> transformedAsteroids.asDomainModel() }
+            }
+            AsteroidFilter.SHOW_ALL -> {
+                Transformations.map(asteroidDatabase.asteroidDao.getAllAsteroids())
+                { transformedAsteroids -> transformedAsteroids.asDomainModel() }
+            }
+            else -> {
+                Transformations.map(asteroidDatabase.asteroidDao.getWeekAsteroids(getDateToday()))
+                { transformedAsteroids -> transformedAsteroids.asDomainModel() }
+            }
         }
+    }
 
     /**
      * Retrieves a response from the API, parses the results to [DatabaseAsteroid] objects, and inserts them into [AsteroidDatabase].

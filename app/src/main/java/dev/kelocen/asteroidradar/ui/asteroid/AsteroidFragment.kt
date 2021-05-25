@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import dev.kelocen.asteroidradar.R
+import dev.kelocen.asteroidradar.data.AsteroidFilter
 import dev.kelocen.asteroidradar.databinding.FragmentAsteroidBinding
 import dev.kelocen.asteroidradar.domain.Asteroid
 import dev.kelocen.asteroidradar.domain.PictureOfDay
@@ -62,7 +63,7 @@ class AsteroidFragment : Fragment() {
      * Configures the observers for the fragment.
      */
     private fun setupObservers() {
-        asteroidViewModel.asteroidsLiveData?.observe(viewLifecycleOwner, { asteroids ->
+        asteroidViewModel.recyclerAsteroids.observe(viewLifecycleOwner, { asteroids ->
             if (asteroids != null) {
                 asteroidAdapter.asteroids = asteroids
             }
@@ -137,17 +138,17 @@ class AsteroidFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.refresh_menu -> {
-                refreshAllContent()
+            R.id.show_today_menu -> {
+                asteroidViewModel.updateAsteroidSelection(AsteroidFilter.SHOW_TODAY)
             }
             R.id.show_week_menu -> {
-                // TODO Week's asteroids
+                asteroidViewModel.updateAsteroidSelection(AsteroidFilter.SHOW_WEEK)
             }
-            R.id.show_today_menu -> {
-                // TODO Today's asteroids
+            R.id.show_all_menu -> {
+                asteroidViewModel.updateAsteroidSelection(AsteroidFilter.SHOW_ALL)
             }
-            else -> {
-                // TODO show all asteroids
+            R.id.refresh_menu -> {
+                refreshAllContent()
             }
         }
         return true
