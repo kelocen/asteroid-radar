@@ -2,8 +2,8 @@
   <!-- - - - - - = = = = = Menu = = = = = - - - - - -->
   <string name="app_name">Asteroid Radar</string>
   <string name="menu_refresh">Refresh asteroids</string>
-  <string name="next_week_asteroids">View week asteroids</string>
-  <string name="today_asteroids">View today asteroids</string>
+  <string name="next_week_asteroids">View weekly asteroids</string>
+  <string name="today_asteroids">View today\'s asteroids</string>
   <string name="all_asteroids">View all asteroids</string>
   <!-- - - - - - = = = = = Detail Fragment = = = = = - - - - - -->
   <string name="absolute_magnitude_label">Absolute magnitude</string>

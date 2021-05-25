@@ -53,7 +53,7 @@ fun bindAsteroidRecycler(recyclerView: RecyclerView, asteroidList: List<Asteroid
     val adapter = recyclerView.adapter as AsteroidAdapter
     if (asteroidList != null) {
         recyclerView.visibility = View.VISIBLE
-        adapter.asteroids = asteroidList
+        adapter.submitList(asteroidList)
     } else {
         recyclerView.visibility = View.INVISIBLE
     }

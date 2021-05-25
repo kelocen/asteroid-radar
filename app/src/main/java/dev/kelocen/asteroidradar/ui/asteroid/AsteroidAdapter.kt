@@ -2,6 +2,8 @@ package dev.kelocen.asteroidradar.ui.asteroid
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dev.kelocen.asteroidradar.databinding.ListItemAsteroidBinding
 import dev.kelocen.asteroidradar.domain.Asteroid
@@ -10,25 +12,14 @@ import dev.kelocen.asteroidradar.domain.Asteroid
  * A subclass of [RecyclerView.Adapter] for [Asteroid] objects.
  */
 class AsteroidAdapter(private val clickListener: AsteroidListener) :
-    RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
-
-    /**
-     * A list of [Asteroid] objects for the [AsteroidAdapter].
-     */
-    var asteroids = listOf<Asteroid?>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun getItemCount() = asteroids.size
+    ListAdapter<Asteroid, AsteroidAdapter.AsteroidHolder>(AsteroidDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AsteroidHolder {
         return AsteroidHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: AsteroidHolder, position: Int) {
-        val asteroidItem = asteroids[position]
+        val asteroidItem = getItem(position)
         holder.bind(clickListener, asteroidItem)
     }
 
@@ -56,6 +47,19 @@ class AsteroidAdapter(private val clickListener: AsteroidListener) :
                 val binding = ListItemAsteroidBinding.inflate(layoutInflater, parent, false)
                 return AsteroidHolder(binding)
             }
+        }
+    }
+
+    /**
+     * A companion object that implements [DiffUtil.ItemCallback] to optimize date refreshing.
+     */
+    companion object AsteroidDiffCallback : DiffUtil.ItemCallback<Asteroid>() {
+        override fun areItemsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
+            return oldItem.id == newItem.id
         }
     }
 

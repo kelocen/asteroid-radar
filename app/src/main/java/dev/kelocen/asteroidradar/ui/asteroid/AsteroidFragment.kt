@@ -65,7 +65,7 @@ class AsteroidFragment : Fragment() {
     private fun setupObservers() {
         asteroidViewModel.recyclerAsteroids.observe(viewLifecycleOwner, { asteroids ->
             if (asteroids != null) {
-                asteroidAdapter.asteroids = asteroids
+                asteroidAdapter.submitList(asteroids)
             }
         })
         asteroidViewModel.pictureOfDay.observe(viewLifecycleOwner, { picture ->
