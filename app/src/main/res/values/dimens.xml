@@ -5,7 +5,7 @@
   <!-- - - - - - = = = = = Asteroid Fragment = = = = = - - - - - -->
   <dimen name="picture_of_day_frame_layout_height">220dp</dimen>
   <dimen name="picture_of_day_label_text_view_padding">16dp</dimen>
-  <dimen name="picture_of_day_label_text_view_text_size">22sp</dimen>
+  <dimen name="picture_of_day_label_text_view_text_size">20sp</dimen>
   <dimen name="picture_of_day_info_image_view_height_width">24dp</dimen>
   <dimen name="picture_of_day_info_image_view_margin_end">25dp</dimen>
   <dimen name="picture_of_day_info_image_view_margin_start">8dp</dimen>
@@ -22,7 +22,7 @@
   <dimen name="padding_constraint_layout_list_item_asteroid">16dp</dimen>
   <dimen name="potentially_hazardous_image_height_width">30dp</dimen>
   <dimen name="asteroid_code_name_text_size">20sp</dimen>
-  <dimen name="asteroid_close_approach_date_text_size">17sp</dimen>
+  <dimen name="asteroid_close_approach_date_text_size">18sp</dimen>
   <!-- - - - - - = = = = = Picture Information Alert = = = = = - - - - - -->
   <dimen name="picture_alert_linear_layout_padding">8dp</dimen>
   <dimen name="picture_alert_heading_margin_top">8dp</dimen>

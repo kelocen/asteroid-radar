@@ -12,21 +12,21 @@ import dev.kelocen.asteroidradar.domain.Asteroid
  * A subclass of [RecyclerView.Adapter] for [Asteroid] objects.
  */
 class AsteroidAdapter(private val clickListener: AsteroidListener) :
-    ListAdapter<Asteroid, AsteroidAdapter.AsteroidHolder>(AsteroidDiffCallback) {
+    ListAdapter<Asteroid, AsteroidAdapter.AsteroidViewHolder>(AsteroidDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AsteroidHolder {
-        return AsteroidHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AsteroidViewHolder {
+        return AsteroidViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: AsteroidHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: AsteroidViewHolder, position: Int) {
         val asteroidItem = getItem(position)
-        holder.bind(clickListener, asteroidItem)
+        viewHolder.bind(clickListener, asteroidItem)
     }
 
     /**
      * A ViewHolder class for [AsteroidAdapter].
      */
-    class AsteroidHolder(private val binding: ListItemAsteroidBinding) :
+    class AsteroidViewHolder(private val binding: ListItemAsteroidBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**
@@ -39,13 +39,13 @@ class AsteroidAdapter(private val clickListener: AsteroidListener) :
         }
 
         /**
-         * A companion object for [AsteroidHolder].
+         * A companion object for [AsteroidViewHolder].
          */
         companion object {
-            fun from(parent: ViewGroup): AsteroidHolder {
+            fun from(parent: ViewGroup): AsteroidViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemAsteroidBinding.inflate(layoutInflater, parent, false)
-                return AsteroidHolder(binding)
+                return AsteroidViewHolder(binding)
             }
         }
     }

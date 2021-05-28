@@ -13,13 +13,13 @@
 
   <!-- Parent Constraint Layout -->
   <androidx.constraintlayout.widget.ConstraintLayout
-    style="@style/constraintLayoutAsteroidListItem"
+    style="@style/AsteroidListItem.ConstraintLayout"
     android:onClick="@{() -> clickListener.onClick(asteroid)}">
 
     <!-- Asteroid Potentially Hazardous -->
     <ImageView
       android:id="@+id/image_potentially_hazardous"
-      style="@style/potentiallyHazardousImageViewListItemAsteroid"
+      style="@style/AsteroidListItem.ImageView.ListItemProperty"
       android:contentDescription="@string/hazard_indicator"
       app:asteroidStatusImage="@{asteroid.isPotentiallyHazardous}"
       app:layout_constraintBottom_toBottomOf="@+id/text_asteroid_approach_date"
@@ -29,7 +29,7 @@
     <!-- Asteroid Approach Date -->
     <TextView
       android:id="@+id/text_asteroid_approach_date"
-      style="@style/approachDateTextViewListItemAsteroid"
+      style="@style/ListItemProperty.ApproachDate"
       app:asteroidCloseApproachDate="@{asteroid.closeApproachDate}"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/text_asteroid_code_name" />
@@ -37,7 +37,7 @@
     <!-- Asteroid Code Name -->
     <TextView
       android:id="@+id/text_asteroid_code_name"
-      style="@style/codenameTextViewListItemAsteroid"
+      style="@style/ListItemProperty.Codename"
       app:asteroidCodename="@{asteroid.codename}"
       app:layout_constraintStart_toEndOf="@id/image_potentially_hazardous"
       app:layout_constraintStart_toStartOf="parent"

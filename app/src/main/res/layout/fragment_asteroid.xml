@@ -9,12 +9,12 @@
   </data>
 
   <!-- Parent Constraint Layout -->
-  <androidx.constraintlayout.widget.ConstraintLayout style="@style/constraintLayoutFragmentAsteroid">
+  <androidx.constraintlayout.widget.ConstraintLayout style="@style/AsteroidScreen.ViewGroup.ConstraintLayout">
 
     <!-- Image of the Day Frame Layout -->
     <FrameLayout
       android:id="@+id/frame_picture_of_the_day_layout"
-      style="@style/frameLayoutAsteroidFragment"
+      style="@style/AsteroidScreen.ViewGroup.FrameLayout"
       app:layout_constraintBottom_toTopOf="@id/refresh_asteroid_recycler"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
       <!-- Picture of the Day -->
       <ImageView
         android:id="@+id/image_picture_of_the_day"
-        style="@style/pictureOfDayImageViewFragmentAsteroid"
+        style="@style/AsteroidScreen.ImageView.PictureOfDay"
         android:contentDescription="@string/picture_of_day_no_image"
         app:pictureApiStatus="@{asteroidViewModel.pictureApiStatus}"
         app:pictureOfDay="@{asteroidViewModel.pictureOfDay}"
@@ -33,14 +33,14 @@
     <!-- Picture of the day background -->
     <View
       android:id="@+id/view_picture_label_background"
-      style="@style/pictureLabelBackgroundViewAsteroidFragment"
+      style="@style/AsteroidScreen.View.LabelBackground"
       app:layout_constraintBottom_toBottomOf="@id/frame_picture_of_the_day_layout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
       android:id="@+id/image_picture_info_button"
-      style="@style/pictureInfoImageViewAsteroidFragment"
+      style="@style/AsteroidScreen.ImageView.PictureInfo"
       android:contentDescription="@string/picture_of_the_day_info"
       app:layout_constraintBottom_toBottomOf="@+id/frame_picture_of_the_day_layout"
       app:layout_constraintStart_toEndOf="@id/text_picture_of_day_label"
@@ -50,7 +50,7 @@
     <!-- Progress Bar -->
     <ProgressBar
       android:id="@+id/status_loading_wheel"
-      style="@style/statusProgressBarFragmentAsteroid"
+      style="@style/AsteroidScreen.ProgressBar.LoadingStatus"
       app:asteroidApiStatus="@{asteroidViewModel.asteroidApiStatus}"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toLeftOf="parent"
@@ -60,10 +60,11 @@
     <!-- Image of the Day Label -->
     <TextView
       android:id="@+id/text_picture_of_day_label"
-      style="@style/pictureOfDayLabelTextViewFragmentAsteroid"
+      style="@style/AsteroidScreen.TextView.PictureOfDayLabel"
       app:layout_constraintBottom_toBottomOf="@id/frame_picture_of_the_day_layout"
       app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Api Status -->
     <TextView
       android:id="@+id/text_asteroid_api_status"
       android:layout_width="wrap_content"
@@ -78,7 +79,7 @@
     <!-- Swipe Refresh Asteroid Layout -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
       android:id="@+id/refresh_asteroid_recycler"
-      style="@style/asteroidRefreshLayoutAsteroidFragment"
+      style="@style/AsteroidScreen.ViewGroup.RefreshLayout"
       app:layout_constrainedHeight="true"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +90,7 @@
       <!-- Asteroid RecyclerView -->
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/asteroid_recycler"
-        style="@style/asteroidsRecyclerViewAsteroidFragment"
+        style="@style/AsteroidScreen.ViewGroup.RecyclerView"
         app:asteroidList="@{asteroidViewModel.recyclerAsteroids}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"

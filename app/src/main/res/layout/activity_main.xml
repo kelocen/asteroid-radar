@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  style="@style/coordinatorLayoutActivityMain">
+  style="@style/ActivityMain.CoordinatorLayout">
   <androidx.fragment.app.FragmentContainerView
     android:id="@+id/nav_host_fragment"
-    style="@style/fragmentContainerActivityMain"
+    style="@style/ActivityMain.FragmentContainer"
     android:name="androidx.navigation.fragment.NavHostFragment"
     app:defaultNavHost="true"
     app:navGraph="@navigation/main_nav_graph" />
