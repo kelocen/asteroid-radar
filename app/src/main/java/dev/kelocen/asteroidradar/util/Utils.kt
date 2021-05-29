@@ -34,12 +34,25 @@ fun getDateToday(): String {
 /**
  * Returns a [String] that contains the date seven days from today's date.
  */
-fun getDateSevenDays(): String {
-    val sevenDaysFromToday: String
+fun getDateNextWeek(): String {
+    val dateNextWeek: String
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_YEAR, 7)
-    val currentTime = calendar.time
+    val futureTime = calendar.time
     val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
-    sevenDaysFromToday = dateFormat.format(currentTime)
-    return sevenDaysFromToday
+    dateNextWeek = dateFormat.format(futureTime)
+    return dateNextWeek
+}
+
+/**
+ * Returns a [String] that contains yesterday's date.
+ */
+fun getDateYesterday(): String {
+    val dateYesterday: String
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, -1)
+    val pastTime = calendar.time
+    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    dateYesterday = dateFormat.format(pastTime)
+    return dateYesterday
 }

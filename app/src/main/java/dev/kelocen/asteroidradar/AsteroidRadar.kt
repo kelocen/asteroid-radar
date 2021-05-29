@@ -16,7 +16,7 @@ class AsteroidRadar : Application() {
     private val applicationScope = CoroutineScope(Dispatchers.Default)
 
     /**
-     * Adds a new logging tree and starts the work background task.
+     * Adds a new logging tree and starts the work background tasks.
      */
     override fun onCreate() {
         super.onCreate()
@@ -26,26 +26,47 @@ class AsteroidRadar : Application() {
 
     private fun delayedInit() {
         applicationScope.launch {
-            setupRecurringWork()
+            setupDataRefreshWork()
+            setupDataCleanWork()
         }
     }
 
     /**
      * Configures a recurring background job to refresh [Asteroid][dev.kelocen.asteroidradar.domain.Asteroid] data.
      */
-    private fun setupRecurringWork() {
+    private fun setupDataRefreshWork() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresCharging(true)
             .build()
 
-        val repeatingRequest = PeriodicWorkRequestBuilder<AsteroidWork>(1, TimeUnit.DAYS)
+        val dataRefreshRequest = PeriodicWorkRequestBuilder<AsteroidWork>(1, TimeUnit.DAYS)
+            .setConstraints(constraints)
+            .addTag(AsteroidWork.WORK_NAME)
+            .build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+                AsteroidWork.WORK_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                dataRefreshRequest)
+    }
+
+    /**
+     * Configures a recurring background job to clean [Asteroid][dev.kelocen.asteroidradar.domain.Asteroid] data.
+     */
+    private fun setupDataCleanWork() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresCharging(true)
+            .build()
+
+        val dataCleanRequest = PeriodicWorkRequestBuilder<AsteroidWork>(1, TimeUnit.DAYS)
             .setConstraints(constraints)
             .build()
 
-        WorkManager.getInstance().enqueueUniquePeriodicWork(
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
                 AsteroidWork.WORK_NAME,
                 ExistingPeriodicWorkPolicy.KEEP,
-                repeatingRequest)
+                dataCleanRequest)
     }
 }

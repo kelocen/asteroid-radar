@@ -63,4 +63,7 @@ interface AsteroidDao {
 
     @Query("SELECT * FROM asteroids WHERE close_approach_date >= :dateToday ORDER BY close_approach_date")
     fun getWeekAsteroids(dateToday: String): LiveData<List<DatabaseAsteroid>>
+
+    @Query("DELETE FROM asteroids WHERE close_approach_date <= :dateYesterday")
+    fun deleteLastWeekAsteroids(dateYesterday: String)
 }
