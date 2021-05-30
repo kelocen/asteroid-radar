@@ -6,8 +6,8 @@ Asteroid Radar is an app for Android that uses the NASA NeoWs (Near Earth Object
 * Minimum SDK: 21
 * Compile SDK: 30
 * Java Version: 1.8
-* Kotlin Version: 1.4.32
-* NASA NEoWs Key (Test key included)
+* Kotlin Version: 1.5.10
+* NASA NEoWs Key (Demo key included)
 
 ## API Reference
 * [NASA APIs](https://api.nasa.gov])
