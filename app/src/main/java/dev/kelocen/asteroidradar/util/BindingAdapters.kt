@@ -82,12 +82,15 @@ fun bindAsteroidCloseApproachDate(textView: TextView, approachDate: String) {
 
 @BindingAdapter("asteroidStatusImage")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
+    val context = imageView.context
     if (isHazardous) {
         imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
-        imageView.contentDescription = R.string.potentially_hazardous_asteroid_image.toString()
+        imageView.contentDescription =
+            context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
         imageView.setImageResource(R.drawable.ic_status_normal)
-        imageView.contentDescription = R.string.not_hazardous_asteroid_image.toString()
+        imageView.contentDescription =
+            context.getString(R.string.not_hazardous_asteroid_image)
     }
 }
 
@@ -114,12 +117,15 @@ fun bindAsteroidApiStatus(progressBar: ProgressBar, status: AsteroidApiStatus?) 
  */
 @BindingAdapter("detailStatusImage")
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
+    val context = imageView.context
     if (isHazardous) {
         Picasso.get().load(R.drawable.asteroid_hazardous).fit().centerInside().into(imageView)
-        imageView.contentDescription = R.string.potentially_hazardous_asteroid_image.toString()
+        imageView.contentDescription =
+            context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
         Picasso.get().load(R.drawable.asteroid_safe).fit().centerInside().into(imageView)
-        imageView.contentDescription = R.string.not_hazardous_asteroid_image.toString()
+        imageView.contentDescription =
+            context.getString(R.string.not_hazardous_asteroid_image)
     }
 }
 

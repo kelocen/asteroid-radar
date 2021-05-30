@@ -38,11 +38,12 @@
   </style>
   <!-- Picture Information Button -->
   <style name="AsteroidScreen.ImageView.PictureInfo" parent="ApplicationStyle.AsteroidScreen">
-    <item name="android:layout_height">@dimen/picture_of_day_info_image_view_height_width</item>
-    <item name="android:layout_width">@dimen/picture_of_day_info_image_view_height_width</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_marginEnd">@dimen/picture_of_day_info_image_view_margin_end</item>
     <item name="android:layout_marginStart">@dimen/picture_of_day_info_image_view_margin_start
     </item>
+    <item name="android:padding">@dimen/info_button_image_view_padding</item>
     <item name="android:background">?selectableItemBackground</item>
   </style>
   <!-- Asteroid Refresh Layout -->
@@ -66,6 +67,12 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:indeterminate">true</item>
+    <item name="android:visibility">gone</item>
+  </style>
+  <!-- Api Status -->
+  <style name="AsteroidScreen.TextView.ApiStatus" parent="ApplicationStyle.AsteroidScreen">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:visibility">gone</item>
   </style>
   <!-- Picture of the Day Label -->
@@ -117,7 +124,6 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:background">?selectableItemBackground</item>
     <item name="android:padding">@dimen/help_button_image_view_padding</item>
-    <item name="android:layout_marginEnd">@dimen/help_button_image_view_margin_end</item>
   </style>
   <!-- Parent Label TextView -->
   <style name="DetailScreen.TextView.DetailLabel" parent="ApplicationStyle.DetailScreen">
@@ -132,6 +138,7 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/text_grey</item>
     <item name="android:layout_marginTop">@dimen/data_text_view_margin_top</item>
     <item name="android:textSize">@dimen/parent_text_view_text_size</item>
   </style>
@@ -143,12 +150,12 @@
   <style name="DetailProperty.ApproachDate" parent="DetailScreen.TextView.DetailProperty" />
   <!-- Magnitude label -->
   <style name="DetailLabel.AbsoluteMagnitude" parent="DetailScreen.TextView.DetailLabel">
-    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
     <item name="android:text">@string/absolute_magnitude_label</item>
   </style>
   <!-- Magnitude -->
   <style name="DetailProperty.AbsoluteMagnitude" parent="DetailScreen.TextView.DetailProperty">
-    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
   </style>
   <!-- Diameter label -->
   <style name="DetailLabel.EstimatedDiameter" parent="DetailScreen.TextView.DetailLabel">
@@ -186,14 +193,12 @@
   <!-- Asteroid Code Name -->
   <style name="ListItemProperty.Codename" parent="AsteroidListItem.TextView.ListItemProperty">
     <item name="android:textSize">@dimen/asteroid_code_name_text_size</item>
-    <item name="android:text">@string/codename_text_view_default_text</item>
   </style>
   <!-- Asteroid Approach Date -->
   <style name="ListItemProperty.ApproachDate" parent="AsteroidListItem.TextView.ListItemProperty">
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">wrap_content</item>
     <item name="android:textSize">@dimen/asteroid_close_approach_date_text_size</item>
-    <item name="android:text">@string/approach_date_text_view_default_text</item>
     <item name="android:textColor">@color/text_grey</item>
   </style>
   <!-- Asteroid Hazard Indicator -->

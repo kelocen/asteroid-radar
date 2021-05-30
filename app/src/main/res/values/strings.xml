@@ -5,7 +5,7 @@
   <string name="next_week_asteroids">View weekly asteroids</string>
   <string name="today_asteroids">View today\'s asteroids</string>
   <string name="all_asteroids">View all asteroids</string>
-  <!-- - - - - - = = = = = Detail Fragment = = = = = - - - - - -->
+  <!-- - - - - - = = = = = Detail Screen = = = = = - - - - - -->
   <string name="absolute_magnitude_label">Absolute magnitude</string>
   <string name="estimated_diameter_label">Estimated diameter</string>
   <string name="relative_velocity_label">Relative velocity</string>
@@ -15,13 +15,11 @@
   <string name="km_s_unit_format">%f km/s</string>
   <string name="astronomical_unit_explanation">The astronomical unit (au) is a unit of length, roughly the distance from Earth to the Sun and equal to about 150 million kilometres (93 million miles)</string>
   <string name="astronomical_unit_explanation_button">Astronomical unit definition</string>
-  <string name="potentially_hazardous_asteroid_image">Potentially hazardous asteroid image</string>
-  <string name="not_hazardous_asteroid_image">Not hazardous asteroid image</string>
-  <!-- - - - - - = = = = = List Item Asteroid = = = = = - - - - - -->
+  <string name="potentially_hazardous_asteroid_image">Potentially hazardous asteroid</string>
+  <string name="not_hazardous_asteroid_image">Not hazardous asteroid</string>
+  <!-- - - - - - = = = = = Asteroid List = = = = = - - - - - -->
   <string name="hazard_indicator">Hazard Indicator</string>
-  <string name="codename_text_view_default_text">68347(2001 Kb67)</string>
-  <string name="approach_date_text_view_default_text">2020–02–08</string>
-  <!-- - - - - - = = = = = Asteroid Fragment = = = = = - - - - - -->
+  <!-- - - - - - = = = = = Asteroid Screen = = = = = - - - - - -->
   <string name="picture_of_day_label">Image of the Day</string>
   <string name="picture_of_day_no_image">This is NASA\'s picture of day, showing nothing yet</string>
   <string name="picture_of_day_description">NASA\'s picture of day: %s</string>

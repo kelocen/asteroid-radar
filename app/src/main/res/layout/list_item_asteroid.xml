@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <data>
     <variable
@@ -32,7 +33,8 @@
       style="@style/ListItemProperty.ApproachDate"
       app:asteroidCloseApproachDate="@{asteroid.closeApproachDate}"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/text_asteroid_code_name" />
+      app:layout_constraintTop_toBottomOf="@+id/text_asteroid_code_name"
+      tools:text="2020–02–08" />
 
     <!-- Asteroid Code Name -->
     <TextView
@@ -41,7 +43,8 @@
       app:asteroidCodename="@{asteroid.codename}"
       app:layout_constraintStart_toEndOf="@id/image_potentially_hazardous"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="68347(2001 Kb67)" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

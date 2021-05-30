@@ -6,14 +6,12 @@
   <dimen name="picture_of_day_frame_layout_height">220dp</dimen>
   <dimen name="picture_of_day_label_text_view_padding">16dp</dimen>
   <dimen name="picture_of_day_label_text_view_text_size">20sp</dimen>
-  <dimen name="picture_of_day_info_image_view_height_width">24dp</dimen>
   <dimen name="picture_of_day_info_image_view_margin_end">25dp</dimen>
   <dimen name="picture_of_day_info_image_view_margin_start">8dp</dimen>
   <dimen name="picture_label_background_view_height">60dp</dimen>
   <!-- - - - - - = = = = = Detail Fragment = = = = = - - - - - -->
   <dimen name="scroll_view_padding">16dp</dimen>
   <dimen name="help_button_image_view_padding">16dp</dimen>
-  <dimen name="help_button_image_view_margin_end">16dp</dimen>
   <dimen name="data_text_view_margin_top">4dp</dimen>
   <dimen name="label_text_view_margin_top">24dp</dimen>
   <dimen name="parent_label_text_view_text_size">20sp</dimen>
@@ -29,4 +27,5 @@
   <dimen name="picture_alert_heading_text_size">20sp</dimen>
   <dimen name="picture_alert_name_text_size">16sp</dimen>
   <dimen name="picture_alert_name_margin_top">8dp</dimen>
+  <dimen name="info_button_image_view_padding">8dp</dimen>
 </resources>
