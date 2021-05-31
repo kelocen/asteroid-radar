@@ -6,7 +6,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.kelocen.asteroidradar.domain.PictureOfDay
 import dev.kelocen.asteroidradar.util.Constants
 import okhttp3.OkHttpClient
-import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -46,7 +45,7 @@ private val moshi = Moshi.Builder()
  */
 interface AsteroidApiService {
     /**
-     * Returns a [JSONObject] that contains asteroid data.
+     * Returns a [String] that contains asteroid data.
      */
     @GET(Constants.NEO_FEED)
     suspend fun getAsteroids(@Query(Constants.START_DATE) startDate: String,

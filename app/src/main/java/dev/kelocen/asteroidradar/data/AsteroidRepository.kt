@@ -12,6 +12,7 @@ import dev.kelocen.asteroidradar.network.AsteroidApi
 import dev.kelocen.asteroidradar.network.NetworkAsteroid
 import dev.kelocen.asteroidradar.network.PictureApi
 import dev.kelocen.asteroidradar.network.asDatabaseModel
+import dev.kelocen.asteroidradar.ui.asteroid.AsteroidFilter
 import dev.kelocen.asteroidradar.util.api.parseAsteroidsJsonResult
 import dev.kelocen.asteroidradar.util.getApiKey
 import dev.kelocen.asteroidradar.util.getDateNextWeek
@@ -23,16 +24,18 @@ import org.json.JSONObject
 import timber.log.Timber
 
 /**
- * An enum class to filter the asteroids on the [Asteroid] screen.
- */
-enum class AsteroidFilter { SHOW_TODAY, SHOW_WEEK, SHOW_ALL }
-
-/**
  * A repository for asteroid data.
  */
 class AsteroidRepository(context: Context) {
 
     private var asteroidDatabase = AsteroidDatabase.getInstance(context.applicationContext)
+
+    /**
+     * A [Boolean] that's set to true if the **API_KEY** variable in the **key.properties** file
+     * is not blank or empty. This variable is used to determine if ViewModel classes should
+     * call [AsteroidRepository.refreshAsteroids] and [AsteroidRepository.getPictureOfDay].
+     */
+    var hasApiKey: Boolean = getApiKey().isNotBlank() && getApiKey().isNotEmpty()
 
     /**
      * Retrieves [DatabaseAsteroid] objects from [AsteroidDatabase] and uses [Transformations]

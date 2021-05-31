@@ -2,7 +2,6 @@ package dev.kelocen.asteroidradar.ui.asteroid
 
 import android.app.Application
 import androidx.lifecycle.*
-import dev.kelocen.asteroidradar.data.AsteroidFilter
 import dev.kelocen.asteroidradar.data.AsteroidRepository
 import dev.kelocen.asteroidradar.data.database.AsteroidDatabase
 import dev.kelocen.asteroidradar.domain.Asteroid
@@ -13,6 +12,11 @@ import dev.kelocen.asteroidradar.ui.detail.DetailFragment
 import kotlinx.coroutines.launch
 
 /**
+ * An enum class to filter the asteroids on the [Asteroid] screen.
+ */
+enum class AsteroidFilter { SHOW_TODAY, SHOW_WEEK, SHOW_ALL }
+
+/**
  * A [ViewModel] subclass for [Asteroid] data.
  */
 class AsteroidViewModel(application: Application) : ViewModel() {
@@ -21,6 +25,13 @@ class AsteroidViewModel(application: Application) : ViewModel() {
      * An instance of [AsteroidRepository] used to retrieve [Asteroid] data.
      */
     private var asteroidRepository = AsteroidRepository(application)
+
+    /**
+     * A [Boolean] that's set to true if the **API_KEY** variable in the **key.properties** file
+     * is not blank or empty. This variable is used to determine if ViewModel classes should
+     * call [AsteroidRepository.refreshAsteroids] and [AsteroidRepository.getPictureOfDay].
+     */
+    var hasApiKey = asteroidRepository.hasApiKey
 
     /**
      * A [LiveData] list of [Asteroid] objects for the recycler view.
@@ -100,13 +111,15 @@ class AsteroidViewModel(application: Application) : ViewModel() {
      * Refreshes [AsteroidRepository] to update the list of [Asteroid] objects.
      */
     fun refreshAsteroidRepository() {
-        viewModelScope.launch {
-            _asteroidApiStatus.postValue(AsteroidApiStatus.LOADING)
-            asteroidRepository.refreshAsteroids()
-            if (asteroidsLiveData.value != null) {
-                _asteroidApiStatus.postValue(AsteroidApiStatus.DONE)
-            } else {
-                _asteroidApiStatus.postValue(AsteroidApiStatus.ERROR)
+        if (hasApiKey) { // If no API key is found, method doesn't run.
+            viewModelScope.launch {
+                _asteroidApiStatus.postValue(AsteroidApiStatus.LOADING)
+                asteroidRepository.refreshAsteroids()
+                if (asteroidsLiveData.value != null) {
+                    _asteroidApiStatus.postValue(AsteroidApiStatus.DONE)
+                } else {
+                    _asteroidApiStatus.postValue(AsteroidApiStatus.ERROR)
+                }
             }
         }
     }
@@ -115,13 +128,15 @@ class AsteroidViewModel(application: Application) : ViewModel() {
      * Refreshes the [PictureOfDay].
      */
     fun refreshPictureOfDay() {
-        viewModelScope.launch {
-            _pictureApiStatus.postValue(PictureApiStatus.LOADING)
-            _pictureOfDay.postValue(asteroidRepository.getPictureOfDay())
-            if (_pictureOfDay.value != null) {
-                _pictureApiStatus.postValue(PictureApiStatus.DONE)
-            } else {
-                _pictureApiStatus.postValue(PictureApiStatus.ERROR)
+        if (hasApiKey) { // If no API key is found, method doesn't run.
+            viewModelScope.launch {
+                _pictureApiStatus.postValue(PictureApiStatus.LOADING)
+                _pictureOfDay.postValue(asteroidRepository.getPictureOfDay())
+                if (_pictureOfDay.value != null) {
+                    _pictureApiStatus.postValue(PictureApiStatus.DONE)
+                } else {
+                    _pictureApiStatus.postValue(PictureApiStatus.ERROR)
+                }
             }
         }
     }

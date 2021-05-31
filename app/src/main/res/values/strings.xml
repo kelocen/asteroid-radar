@@ -29,4 +29,5 @@
   <string name="picture_of_day_heading">Astronomy Picture of The Day</string>
   <string name="picture_of_day_day_name">M104: The Sombrero Galaxy</string>
   <string name="picture_of_the_day_info">Picture of the day info.</string>
+  <string name="missing_api_key_snackbar_message">No API Key Found! Please see the Readme.</string>
 </resources>

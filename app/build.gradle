@@ -20,10 +20,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // This app requires a valid API key that should be
-        // placed in the key.properties file. The included
-        // key is a demo key made publicly available by the
-        // API vendor for exploring the service, and has a
-        // limited number of queries.
+        // placed in the key.properties file.
         ApiKey.checkBuildKeyProperties()
         buildConfigField "boolean", "isKeyEncoded", ApiKey.isKeyEncoded()
         buildConfigField "String", "API_KEY", ApiKey.getApiKey()

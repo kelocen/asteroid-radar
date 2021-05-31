@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import dev.kelocen.asteroidradar.R
-import dev.kelocen.asteroidradar.data.AsteroidFilter
 import dev.kelocen.asteroidradar.databinding.FragmentAsteroidBinding
 import dev.kelocen.asteroidradar.domain.Asteroid
 import dev.kelocen.asteroidradar.domain.PictureOfDay
@@ -55,6 +55,13 @@ class AsteroidFragment : Fragment() {
         binding.asteroidViewModel = asteroidViewModel
         binding.asteroidRecycler.adapter = asteroidAdapter
         binding.statusLoadingWheel
+        if (!asteroidViewModel.hasApiKey) {
+            Snackbar.make(binding.root,
+                    getString(R.string.missing_api_key_snackbar_message),
+                    Snackbar.LENGTH_INDEFINITE
+            )
+                .show()
+        }
         setupObservers()
         setupListeners()
     }
@@ -102,8 +109,10 @@ class AsteroidFragment : Fragment() {
      * and [Asteroids][dev.kelocen.asteroidradar.domain.Asteroid].
      */
     private fun refreshAllContent() {
-        asteroidViewModel.refreshAsteroidRepository()
-        asteroidViewModel.refreshPictureOfDay()
+        if (asteroidViewModel.hasApiKey) {
+            asteroidViewModel.refreshAsteroidRepository()
+            asteroidViewModel.refreshPictureOfDay()
+        }
         if (binding.refreshAsteroidRecycler.isRefreshing) {
             binding.refreshAsteroidRecycler.isRefreshing = false
         }
