@@ -87,7 +87,6 @@ dependencies {
     // Legacy Support
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:1.0.1"
     implementation "androidx.work:work-runtime-ktx:$work_version"
     implementation "androidx.work:work-multiprocess:$work_version"
     androidTestImplementation "androidx.work:work-testing:$work_version"

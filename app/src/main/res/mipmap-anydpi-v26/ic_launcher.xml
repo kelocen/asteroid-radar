@@ -3,19 +3,3 @@
   <background android:drawable="@mipmap/ic_launcher_background" />
   <foreground android:drawable="@mipmap/ic_launcher_foreground" />
 </adaptive-icon>
-
-  <!--
-Name: ic_launcher_foreground
-Original Name: proximity-150698_640
-Location: https://pixabay.com/vectors/proximity-radar-enemy-green-150698/
-Artist: OpenClip-Vectors
-Download Date: May 29th, 2021
-License: PixaBay License (https://pixabay.com/service/license/)
-
-name: ic_launcher_background
-Original Name: stars-1655504_640
-Location: https://pixabay.com/photos/stars-night-sky-space-galaxy-1655504/
-Artist: Hans
-Download Date: May 29th, 2021
-License: PixaBay License (https://pixabay.com/service/license/)
-  -->
